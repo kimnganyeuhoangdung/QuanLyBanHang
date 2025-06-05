@@ -1,0 +1,117 @@
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\Polycafe_BUS.dll.config
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\Polycafe_BUS.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\Polycafe_BUS.pdb
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\ClosedXML.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\ClosedXML.Parser.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\DocumentFormat.OpenXml.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\DocumentFormat.OpenXml.Framework.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\ExcelNumberFormat.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\Microsoft.Bcl.HashCode.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\Polycafe_DAL.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\Polycafe_DTO.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\RBush.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\SixLabors.Fonts.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\System.Buffers.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\System.Memory.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\Polycafe_DAL.pdb
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\Polycafe_DAL.dll.config
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\Polycafe_DTO.pdb
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\Polycafe_DTO.dll.config
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\ClosedXML.pdb
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\ClosedXML.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\ClosedXML.Parser.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\DocumentFormat.OpenXml.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\DocumentFormat.OpenXml.Framework.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\ExcelNumberFormat.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\Microsoft.Bcl.HashCode.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\RBush.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\SixLabors.Fonts.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\System.Buffers.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\System.Memory.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\obj\Debug\Polycafe_BLL.csproj.AssemblyReference.cache
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\obj\Debug\Polycafe_BLL.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\obj\Debug\Polycafe.C3C7BF66.Up2Date
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\obj\Debug\Polycafe_BUS.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_BUS\obj\Debug\Polycafe_BUS.pdb
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\Polycafe_BUS.dll.config
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\Polycafe_BUS.dll
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\Polycafe_BUS.pdb
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\ClosedXML.dll
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\ClosedXML.Parser.dll
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\DocumentFormat.OpenXml.dll
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\DocumentFormat.OpenXml.Framework.dll
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\ExcelNumberFormat.dll
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\Microsoft.Bcl.HashCode.dll
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\Polycafe_DAL.dll
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\Polycafe_DTO.dll
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\RBush.dll
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\SixLabors.Fonts.dll
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\System.Buffers.dll
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\System.Memory.dll
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\System.Numerics.Vectors.dll
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\Polycafe_DAL.pdb
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\Polycafe_DAL.dll.config
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\Polycafe_DTO.pdb
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\Polycafe_DTO.dll.config
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\ClosedXML.pdb
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\ClosedXML.xml
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\ClosedXML.Parser.xml
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\DocumentFormat.OpenXml.xml
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\DocumentFormat.OpenXml.Framework.xml
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\ExcelNumberFormat.xml
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\Microsoft.Bcl.HashCode.xml
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\RBush.xml
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\SixLabors.Fonts.xml
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\System.Buffers.xml
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\System.Memory.xml
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\System.Numerics.Vectors.xml
+D:\QuanLyBanHang-main\Polycafe_BUS\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\QuanLyBanHang-main\Polycafe_BUS\obj\Debug\Polycafe_BLL.csproj.AssemblyReference.cache
+D:\QuanLyBanHang-main\Polycafe_BUS\obj\Debug\Polycafe_BLL.csproj.CoreCompileInputs.cache
+D:\QuanLyBanHang-main\Polycafe_BUS\obj\Debug\Polycafe.C3C7BF66.Up2Date
+D:\QuanLyBanHang-main\Polycafe_BUS\obj\Debug\Polycafe_BUS.dll
+D:\QuanLyBanHang-main\Polycafe_BUS\obj\Debug\Polycafe_BUS.pdb
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\Polycafe_BUS.dll.config
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\Polycafe_BUS.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\Polycafe_BUS.pdb
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\ClosedXML.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\ClosedXML.Parser.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\DocumentFormat.OpenXml.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\DocumentFormat.OpenXml.Framework.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\ExcelNumberFormat.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\Microsoft.Bcl.HashCode.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\Polycafe_DAL.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\Polycafe_DTO.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\RBush.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\SixLabors.Fonts.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\System.Buffers.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\System.Memory.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\Polycafe_DAL.pdb
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\Polycafe_DAL.dll.config
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\Polycafe_DTO.pdb
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\Polycafe_DTO.dll.config
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\ClosedXML.pdb
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\ClosedXML.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\ClosedXML.Parser.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\DocumentFormat.OpenXml.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\DocumentFormat.OpenXml.Framework.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\ExcelNumberFormat.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\Microsoft.Bcl.HashCode.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\RBush.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\SixLabors.Fonts.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\System.Buffers.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\System.Memory.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\obj\Debug\Polycafe_BLL.csproj.AssemblyReference.cache
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\obj\Debug\Polycafe_BLL.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\obj\Debug\Polycafe.C3C7BF66.Up2Date
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\obj\Debug\Polycafe_BUS.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_BUS\obj\Debug\Polycafe_BUS.pdb

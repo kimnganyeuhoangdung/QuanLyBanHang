@@ -1,0 +1,194 @@
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\bin\Debug\Polycafe_GUI.exe.config
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\bin\Debug\Polycafe_GUI.exe
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\bin\Debug\Polycafe_GUI.pdb
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\obj\Debug\Polycafe_GUI.csproj.AssemblyReference.cache
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\obj\Debug\Polycafe_GUI.Properties.Resources.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\obj\Debug\Polycafe_GUI.csproj.GenerateResource.cache
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\obj\Debug\Polycafe_GUI.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\obj\Debug\Polycafe_GUI.exe
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\obj\Debug\Polycafe_GUI.pdb
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\obj\Debug\Polycafe_GUI.QLNhanVien.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\obj\Debug\Polycafe_GUI.QLLoaiSanPham.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\obj\Debug\Polycafe_GUI.QuanLySanPham.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\obj\Debug\Polycafe_GUI.QLPhieuBanHang.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\obj\Debug\Polycafe_GUI.QLTheLuuDong.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\obj\Debug\Polycafe_GUI.CaiDat.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\obj\Debug\Polycafe_GUI.ThongKe.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\obj\Debug\Polycafe_GUI.Login.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\obj\Debug\Polycafe_GUI.MainForm.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\obj\Debug\Polycafe_GUI.Welcome.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\bin\Debug\Polycafe_BUS.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\bin\Debug\Polycafe_DTO.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\bin\Debug\Polycafe_DAL.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\bin\Debug\Polycafe_BUS.pdb
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\bin\Debug\Polycafe_DTO.pdb
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\bin\Debug\Polycafe_DAL.pdb
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\obj\Debug\Polycafe.C335FB63.Up2Date
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\Polycafe_GUI\obj\Debug\Polycafe_GUI.exe.config
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\Polycafe_GUI.exe.config
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\Polycafe_GUI.exe
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\Polycafe_GUI.pdb
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\Polycafe_BUS.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\Polycafe_DTO.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\Polycafe_DAL.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\Polycafe_BUS.pdb
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\Polycafe_DTO.pdb
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\Polycafe_DAL.pdb
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe_GUI.csproj.AssemblyReference.cache
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe_GUI.exe.config
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe_GUI.CaiDat.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe_GUI.Login.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe_GUI.MainForm.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe_GUI.Properties.Resources.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe_GUI.QLLoaiSanPham.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe_GUI.QLNhanVien.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe_GUI.QLPhieuBanHang.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe_GUI.QLTheLuuDong.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe_GUI.QuanLySanPham.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe_GUI.ThongKe.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe_GUI.Welcome.resources
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe_GUI.csproj.GenerateResource.cache
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe_GUI.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe.C335FB63.Up2Date
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe_GUI.exe
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe_GUI.pdb
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\ClosedXML.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\ClosedXML.Parser.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\DocumentFormat.OpenXml.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\DocumentFormat.OpenXml.Framework.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\ExcelNumberFormat.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\Microsoft.Bcl.HashCode.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\RBush.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\SixLabors.Fonts.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\System.Buffers.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\System.Memory.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\Polycafe_BUS.dll.config
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\Polycafe_DTO.dll.config
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\ClosedXML.pdb
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\ClosedXML.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\ClosedXML.Parser.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\DocumentFormat.OpenXml.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\DocumentFormat.OpenXml.Framework.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\ExcelNumberFormat.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\Microsoft.Bcl.HashCode.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\RBush.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\SixLabors.Fonts.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\System.Buffers.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\System.Memory.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\bin\Debug\Polycafe_DAL.dll.config
+C:\Users\ADMIN\OneDrive\Tài liệu\Dự Án Mẫu_SOF2052\ASM_Project\QuanLyBanHang\Polycafe_GUI\obj\Debug\Polycafe_GUI.ForgetPassword.resources
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\Polycafe_GUI.exe.config
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\Polycafe_GUI.exe
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\Polycafe_GUI.pdb
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\ClosedXML.dll
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\ClosedXML.Parser.dll
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\DocumentFormat.OpenXml.dll
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\DocumentFormat.OpenXml.Framework.dll
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\ExcelNumberFormat.dll
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\Microsoft.Bcl.HashCode.dll
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\Polycafe_BUS.dll
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\Polycafe_DTO.dll
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\RBush.dll
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\SixLabors.Fonts.dll
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\System.Buffers.dll
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\System.Memory.dll
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\System.Numerics.Vectors.dll
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\Polycafe_DAL.dll
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\Polycafe_BUS.pdb
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\Polycafe_BUS.dll.config
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\Polycafe_DTO.pdb
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\Polycafe_DTO.dll.config
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\ClosedXML.pdb
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\ClosedXML.xml
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\ClosedXML.Parser.xml
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\DocumentFormat.OpenXml.xml
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\DocumentFormat.OpenXml.Framework.xml
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\ExcelNumberFormat.xml
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\Microsoft.Bcl.HashCode.xml
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\RBush.xml
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\SixLabors.Fonts.xml
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\System.Buffers.xml
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\System.Memory.xml
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\System.Numerics.Vectors.xml
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\Polycafe_DAL.pdb
+D:\QuanLyBanHang-main\Polycafe_GUI\bin\Debug\Polycafe_DAL.dll.config
+D:\QuanLyBanHang-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.csproj.AssemblyReference.cache
+D:\QuanLyBanHang-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.CaiDat.resources
+D:\QuanLyBanHang-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.ForgetPassword.resources
+D:\QuanLyBanHang-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.Login.resources
+D:\QuanLyBanHang-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.MainForm.resources
+D:\QuanLyBanHang-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.Properties.Resources.resources
+D:\QuanLyBanHang-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.QLLoaiSanPham.resources
+D:\QuanLyBanHang-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.QLNhanVien.resources
+D:\QuanLyBanHang-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.QLPhieuBanHang.resources
+D:\QuanLyBanHang-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.QLTheLuuDong.resources
+D:\QuanLyBanHang-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.QuanLySanPham.resources
+D:\QuanLyBanHang-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.ThongKe.resources
+D:\QuanLyBanHang-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.Welcome.resources
+D:\QuanLyBanHang-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.csproj.GenerateResource.cache
+D:\QuanLyBanHang-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.csproj.CoreCompileInputs.cache
+D:\QuanLyBanHang-main\Polycafe_GUI\obj\Debug\Polycafe.C335FB63.Up2Date
+D:\QuanLyBanHang-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.exe
+D:\QuanLyBanHang-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.pdb
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\Polycafe_GUI.exe.config
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\Polycafe_GUI.exe
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\Polycafe_GUI.pdb
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\ClosedXML.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\ClosedXML.Parser.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\DocumentFormat.OpenXml.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\DocumentFormat.OpenXml.Framework.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\ExcelNumberFormat.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\Microsoft.Bcl.HashCode.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\Polycafe_BUS.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\Polycafe_DTO.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\RBush.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\SixLabors.Fonts.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\System.Buffers.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\System.Memory.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\Polycafe_DAL.dll
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\Polycafe_BUS.pdb
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\Polycafe_BUS.dll.config
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\Polycafe_DTO.pdb
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\Polycafe_DTO.dll.config
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\ClosedXML.pdb
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\ClosedXML.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\ClosedXML.Parser.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\DocumentFormat.OpenXml.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\DocumentFormat.OpenXml.Framework.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\ExcelNumberFormat.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\Microsoft.Bcl.HashCode.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\RBush.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\SixLabors.Fonts.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\System.Buffers.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\System.Memory.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\Polycafe_DAL.pdb
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\bin\Debug\Polycafe_DAL.dll.config
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.csproj.AssemblyReference.cache
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.CaiDat.resources
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.ForgetPassword.resources
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.Login.resources
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.MainForm.resources
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.Properties.Resources.resources
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.QLLoaiSanPham.resources
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.QLNhanVien.resources
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.QLPhieuBanHang.resources
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.QLTheLuuDong.resources
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.QuanLySanPham.resources
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.ThongKe.resources
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.Welcome.resources
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.csproj.GenerateResource.cache
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe.C335FB63.Up2Date
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.exe
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.pdb
+C:\Users\ADMIN\OneDrive\Máy tính\QuanLyCaPhe-main\Polycafe_GUI\obj\Debug\Polycafe_GUI.exe.config
