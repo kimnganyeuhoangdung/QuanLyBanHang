@@ -15,6 +15,10 @@ namespace Polycafe_GUI
         private string _vaiTro;
         private ThongkeNVBUS bus = new ThongkeNVBUS();
 
+        private string connectionString = "Data Source=.;Initial Catalog=QLPolycafe;Integrated Security=True;";
+        private nhanvienBLL nhanVienBLL;
+        private ThongKeBLL thongKeBLL;
+
         public ThongKe(string vaiTro)
         {
             InitializeComponent();
@@ -31,6 +35,9 @@ namespace Polycafe_GUI
             groupBox7.Visible = false; // Chứa chart4 (theo tuần)
             groupBox8.Visible = false;
             groupBox9.Visible = false;
+
+            nhanVienBLL = new nhanvienBLL(connectionString);
+            thongKeBLL = new ThongKeBLL(connectionString);
         }
 
         private void ThongKe_Load(object sender, EventArgs e)
@@ -48,11 +55,12 @@ namespace Polycafe_GUI
 
             if (tabControl1.SelectedTab == tabPage1)
             {
-                LoadCombo();
+                //LoadCombo();
+                LoadNhanVienToComboBox();
                 LoadData();
                 LoadChartTheoThang();
                 LoadChartTheoTuan();
-                LoadPieChartTheoQuy();
+                //LoadPieChartTheoQuy();
             }
             else if (tabControl1.SelectedTab == tabPage2)
             {
@@ -181,6 +189,7 @@ namespace Polycafe_GUI
                 if (gridData == null || gridData.Rows.Count == 0)
                 {
                     MessageBox.Show("Không có dữ liệu thống kê phù hợp.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
 
                 dataGridView1.DataSource = gridData;
@@ -192,7 +201,33 @@ namespace Polycafe_GUI
             {
                 MessageBox.Show("Đã xảy ra lỗi khi thống kê: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            string selectedMaNhanVien = comboBox1.SelectedValue?.ToString();
+            DateTime fromDate = dateTimePicker1.Value.Date;
+            DateTime toDate = dateTimePicker2.Value.Date.AddDays(1).AddMilliseconds(-1);
+
+            if (fromDate > toDate)
+            {
+                MessageBox.Show("Ngày 'Từ ngày' không được lớn hơn ngày 'Đến ngày'.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                chart1.Series.Clear();
+                chart1.Titles.Clear();
+                return;
+            }
+            // Gọi BLL để lấy dữ liệu thống kê
+            List<ThongKeNhanVienDTO> listThongKe = thongKeBLL.GetDoanhThuTheoThang(selectedMaNhanVien, fromDate, toDate);
+
+            if (listThongKe == null || !listThongKe.Any())
+            {
+                MessageBox.Show("Không có dữ liệu doanh thu cho khoảng thời gian và nhân viên đã chọn.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                chart1.Series.Clear();
+                chart1.Titles.Clear();
+                return;
+            }
+
+            LoadChartTheoThang(listThongKe); // Truyền List<ThongKeDoanhThuDTO> thay vì DataTable
+                        
             LoadChartTheoTuan();
+            LoadPieChartTheoQuy();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -231,11 +266,11 @@ namespace Polycafe_GUI
 
             if (tabControl1.SelectedTab == tabPage1)
             {
-                LoadCombo();
+                LoadNhanVienToComboBox();
                 LoadData();
                 LoadChartTheoThang();
                 LoadChartTheoTuan();
-                LoadPieChartTheoQuy();
+                //LoadPieChartTheoQuy();
             }
             else if (tabControl1.SelectedTab == tabPage2)
             {
@@ -250,7 +285,6 @@ namespace Polycafe_GUI
 
         private void LoadChartTheoTuan()
         {
-
             DateTime tuNgay = dateTimePicker1.Value.Date;
             DateTime denNgay = dateTimePicker2.Value.Date;
 
@@ -311,28 +345,25 @@ namespace Polycafe_GUI
             area.AxisX.LabelStyle.Font = new Font("Arial", 9);
 
             var weeklyTotalRevenue = dt.AsEnumerable()
-     .GroupBy(r => new { Ky = r.Field<int>("Ky"), Nam = r.Field<int>("Nam") })
-     .Select(g =>
-     {
-         // Ước lượng ngày đại diện của tuần
-         DateTime firstDayOfYear = new DateTime(g.Key.Nam, 1, 1);
-         DateTime approxDate = firstDayOfYear.AddDays((g.Key.Ky - 1) * 7);
+                .GroupBy(r => new { Ky = r.Field<int>("Ky"), Nam = r.Field<int>("Nam") })
+                .Select(g =>
+                {
+                    DateTime firstDayOfYear = new DateTime(g.Key.Nam, 1, 1);
+                    DateTime approxDate = firstDayOfYear.AddDays((g.Key.Ky - 1) * 7);
+                    string thang = approxDate.ToString("MM");
 
-         // Lấy tháng từ ngày đó
-         string thang = approxDate.ToString("MM");
-
-         return new
-         {
-             Ky = g.Key.Ky,
-             Nam = g.Key.Nam,
-             TuanLabel = $"Tuần {g.Key.Ky} (Tháng {thang})",
-             TotalRevenue = g.Sum(r => Convert.ToDouble(r.Field<object>("TongDoanhThu")))
-         };
-     })
-     .OrderBy(x => x.Nam)
-     .ThenBy(x => x.Ky)
-     .ToList();
-
+                    return new
+                    {
+                        Ky = g.Key.Ky,
+                        Nam = g.Key.Nam,
+                        Thang = thang,
+                        TuanLabel = $"Tuần {g.Key.Ky} (Tháng {thang})",
+                        TotalRevenue = g.Sum(r => Convert.ToDouble(r.Field<object>("TongDoanhThu")))
+                    };
+                })
+                .OrderBy(x => x.Nam)
+                .ThenBy(x => x.Ky)
+                .ToList();
 
             Series series = new Series("Tổng doanh thu theo tuần")
             {
@@ -346,10 +377,13 @@ namespace Polycafe_GUI
 
             foreach (var item in weeklyTotalRevenue)
             {
-                series.Points.AddXY(item.TuanLabel, item.TotalRevenue);
-            }
-            chart4.Series.Add(series);
+                int pointIndex = series.Points.AddXY(item.TuanLabel, item.TotalRevenue);
 
+                // Hiển thị tooltip khi hover
+                series.Points[pointIndex].ToolTip = $"Tuần {item.Ky} - Tháng {item.Thang}";
+            }
+
+            chart4.Series.Add(series);
             chart4.Legends.Clear();
             chart4.ChartAreas[0].RecalculateAxesScale();
         }
@@ -358,7 +392,15 @@ namespace Polycafe_GUI
 
         private void LoadChartTheoThang()
         {
-            DataTable dt = bus.LayThongTinThongKe("Theo Tháng");
+            DateTime tuNgay = dateTimePicker1.Value.Date;
+            DateTime denNgay = dateTimePicker2.Value.Date;
+
+            if (tuNgay > denNgay)
+            {
+                MessageBox.Show("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc.", "Lỗi chọn ngày", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            DataTable dt = bus.LayThongTinThongKe("Theo Tháng", tuNgay, denNgay);
 
             if (dt == null || dt.Rows.Count == 0 ||
                 !dt.Columns.Contains("TongDoanhThu") ||
@@ -482,7 +524,15 @@ namespace Polycafe_GUI
 
         private void LoadPieChartTheoQuy()
         {
-            DataTable dt = bus.LayThongTinThongKe("Theo Quý");
+            DateTime tuNgay = dateTimePicker1.Value.Date;
+            DateTime denNgay = dateTimePicker2.Value.Date;
+
+            if (tuNgay > denNgay)
+            {
+                MessageBox.Show("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc.", "Lỗi chọn ngày", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            DataTable dt = bus.LayThongTinThongKe("Theo Quý", tuNgay, denNgay);
 
             if (!dt.Columns.Contains("TongDoanhThu") || !dt.Columns.Contains("Ky") || !dt.Columns.Contains("Nam"))
             {
@@ -593,16 +643,16 @@ namespace Polycafe_GUI
 
             if (listMaSP != null)
             {
-                var allProducts = new SanPham_DTO
+                var allProducts = new qlLSP
                 {
-                    MaSP = "",
-                    TenSP = "--Tất cả sản phẩm"
+                    MaLoai = "",
+                    TenLoai = "--Tất cả sản phẩm"
                 };
                 listMaSP.Insert(0, allProducts);
 
                 comboBox2.DataSource = listMaSP;
-                comboBox2.DisplayMember = "TenSP";
-                comboBox2.ValueMember = "MaSP";
+                comboBox2.DisplayMember = "TenLoai";
+                comboBox2.ValueMember = "MaLoai";
                 comboBox2.SelectedIndex = 0;
             }
             else
@@ -696,7 +746,7 @@ namespace Polycafe_GUI
             chart5.Legends.Clear();
             chart5.ChartAreas.Clear();
 
-            ChartArea chartArea = new ChartArea("PieChartArea")
+            ChartArea chartArea = new ChartArea("BarChartArea")
             {
                 BackColor = Color.Transparent
             };
@@ -712,22 +762,16 @@ namespace Polycafe_GUI
 
             Series series = new Series("DoanhThuTheoThang")
             {
-                ChartType = SeriesChartType.Pie,
+                ChartType = SeriesChartType.Bar, // BIỂU ĐỒ CỘT NGANG
                 Font = new Font("Arial", 9, FontStyle.Bold),
-                Label = "#PERCENT{P0}\n#VALY{N0} VNĐ",
-                LegendText = "#VALX",
                 IsValueShownAsLabel = true,
-                CustomProperties = "PieLabelStyle=Outside, PieLineColor=Gray",
-                BorderColor = Color.White,
-                BorderWidth = 1,
-                ShadowOffset = 2,
-                ShadowColor = Color.FromArgb(128, 0, 0, 0),
-                Palette = ChartColorPalette.Pastel,
+                Color = Color.SeaGreen,
+                BorderColor = Color.Black,
+                BorderWidth = 1
             };
 
             if (dt == null || dt.Rows.Count == 0 || !dt.Columns.Contains("Thang") || !dt.Columns.Contains("DoanhThu"))
             {
-                MessageBox.Show("Không tìm thấy dữ liệu hoặc thiếu các cột 'Thang', 'DoanhThu' để hiển thị biểu đồ.", "Thông tin", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -743,7 +787,7 @@ namespace Polycafe_GUI
 
                 DataPoint point = new DataPoint
                 {
-                    AxisLabel = thang,
+                    AxisLabel = "Tháng " + thang,
                     YValues = new double[] { doanhThu },
                     ToolTip = $"Tháng {thang}: {doanhThu:N0} VNĐ"
                 };
@@ -754,26 +798,29 @@ namespace Polycafe_GUI
 
             Legend legend = new Legend("DoanhThuLegend")
             {
-                Docking = Docking.Right,
-                Alignment = StringAlignment.Near,
-                BackColor = Color.Transparent,
-                BorderColor = Color.LightGray,
-                BorderWidth = 1,
-                Font = new Font("Arial", 10)
+                Docking = Docking.Bottom,
+                Font = new Font("Arial", 10),
+                BackColor = Color.Transparent
             };
             chart5.Legends.Add(legend);
+            Color[] colors = new Color[] {
+    Color.Blue, Color.Green, Color.Red, Color.Orange, Color.Purple,
+    Color.Teal, Color.Olive, Color.Brown, Color.DarkCyan, Color.DarkMagenta
+};
+            // Tùy chọn trục
+            chart5.ChartAreas["BarChartArea"].AxisY.Title = "Tháng";
+            chart5.ChartAreas["BarChartArea"].AxisX.Title = "Doanh thu (VNĐ)";
+            chart5.ChartAreas["BarChartArea"].AxisY.Interval = 1;
 
-            chart5.ChartAreas["PieChartArea"].Position.Auto = false;
-            chart5.ChartAreas["PieChartArea"].Position.X = 5;
-            chart5.ChartAreas["PieChartArea"].Position.Y = 10;
-            chart5.ChartAreas["PieChartArea"].Position.Width = 65;
-            chart5.ChartAreas["PieChartArea"].Position.Height = 80;
+            // Loại bỏ các đường kẻ trên trục Y
+            chart5.ChartAreas["BarChartArea"].AxisY.MajorGrid.Enabled = false;
+            chart5.ChartAreas["BarChartArea"].AxisY.MinorGrid.Enabled = false; // Thêm dòng này để tắt minor grid
 
-            chart5.Legends["DoanhThuLegend"].Position.Auto = false;
-            chart5.Legends["DoanhThuLegend"].Position.X = 70;
-            chart5.Legends["DoanhThuLegend"].Position.Y = 10;
-            chart5.Legends["DoanhThuLegend"].Position.Width = 25;
-            chart5.Legends["DoanhThuLegend"].Position.Height = 80;
+            // Loại bỏ các đường kẻ trên trục X
+            chart5.ChartAreas["BarChartArea"].AxisX.MajorGrid.Enabled = false; // Thêm dòng này để tắt major grid
+            chart5.ChartAreas["BarChartArea"].AxisX.MinorGrid.Enabled = false; // Thêm dòng này để tắt minor grid
+
+            chart5.ChartAreas["BarChartArea"].AxisX.LabelStyle.Format = "#,##0 VNĐ";
         }
 
         ///////////////////////////////////////////// Biểu đồ số phiếu theo sản phẩm /////////////////////////////
@@ -829,7 +876,7 @@ namespace Polycafe_GUI
 
                 DataTable dtTop5 = bus.LayTop5SanPhamBanChay(tuNgay, denNgay);
                 DataTable dtPhieu = bus.LayThongKeSoPhieuTheoSanPham(maloai, tuNgay, denNgay);
-
+                DataTable dtThang = bus.LayDoanhThuTheoThang( tuNgay, denNgay);
                 VeBieuDoTop5(dtTop5);
                 HienThiBieuDoPie();
                 VeBieuDo(dtPhieu);
@@ -840,6 +887,7 @@ namespace Polycafe_GUI
                 if (dt.Rows.Count == 0)
                 {
                     MessageBox.Show("Không có dữ liệu thống kê phù hợp.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
 
                 dataGridView2.DataSource = dt;
@@ -863,6 +911,198 @@ namespace Polycafe_GUI
         }
 
         private void chart1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LoadNhanVienToComboBox()
+        {
+            try
+            {
+                DataTable dtNhanVien = nhanVienBLL.LayDanhSachNhanVienChoComboBox();
+
+                // Thêm mục "Tất cả nhân viên" vào đầu ComboBox
+                DataRow newRow = dtNhanVien.NewRow();
+                newRow["MaNhanVien"] = "Tất cả";
+                newRow["HoTen"] = "Tất cả nhân viên";
+                dtNhanVien.Rows.InsertAt(newRow, 0);
+
+                comboBox1.DataSource = dtNhanVien;
+                comboBox1.DisplayMember = "MaNhanVien";
+                comboBox1.ValueMember = "MaNhanVien";
+
+                comboBox1.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải danh sách nhân viên: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadChartTheoThang(List<ThongKeNhanVienDTO> listThongKe)
+        {
+            // Xóa các series, tiêu đề, và chart areas cũ
+            chart1.Series.Clear();
+            chart1.Titles.Clear();
+            chart1.ChartAreas.Clear();
+            chart1.ChartAreas.Add(new ChartArea("DefaultArea"));
+
+            // Cấu hình tiêu đề biểu đồ
+            Title title = new Title
+            {
+                Text = "Biểu đồ thống kê tổng doanh thu của nhân viên theo tháng",
+                Font = new Font("Arial", 14, FontStyle.Bold),
+                ForeColor = Color.DarkBlue,
+                Alignment = ContentAlignment.TopCenter
+            };
+            chart1.Titles.Add(title);
+
+            // Cấu hình vùng biểu đồ (ChartArea)
+            ChartArea area = chart1.ChartAreas["DefaultArea"];
+            area.BackColor = Color.White;
+            area.BorderDashStyle = ChartDashStyle.Solid;
+            area.BorderWidth = 1;
+            area.BorderColor = Color.LightGray;
+
+            // Lấy tất cả các tháng/năm duy nhất có trong dữ liệu VÀ sắp xếp chúng
+            var uniqueMonths = listThongKe
+                                 .Select(r => new {
+                                     Nam = r.Nam,
+                                     Ky = r.Ky
+                                 })
+                                 .Distinct()
+                                 .OrderBy(m => m.Nam)
+                                 .ThenBy(m => m.Ky)
+                                 .ToList();
+
+            // Tạo danh sách các chuỗi nhãn cho trục X (Category Axis)
+            List<string> xAxisLabels = new List<string>();
+            foreach (var month in uniqueMonths)
+            {
+                xAxisLabels.Add($"Tháng {month.Ky} ({month.Nam})");
+            }
+
+            // Cấu hình trục X
+            area.AxisX.MajorGrid.Enabled = false;
+            area.AxisX.LabelStyle.Angle = -45;
+            area.AxisX.IsLabelAutoFit = true;
+            area.AxisX.LabelStyle.Font = new Font("Arial", 8);
+            area.AxisX.MajorTickMark.Enabled = true;
+            area.AxisX.MajorTickMark.LineColor = Color.Gray;
+            area.AxisX.Title = "Tháng (Năm)";
+            area.AxisX.TitleFont = new Font("Arial", 10, FontStyle.Bold);
+            area.AxisX.Interval = 1;
+            area.AxisX.LabelStyle.IsStaggered = false; // Tắt tính năng so le
+
+
+            // Cấu hình trục Y
+            area.AxisY.Title = "Tổng doanh thu (VNĐ)";
+            area.AxisY.Minimum = 0;
+            area.AxisY.IsLabelAutoFit = true;
+            area.AxisY.MajorGrid.Enabled = true;
+            area.AxisY.MajorGrid.LineColor = Color.LightGray;
+            area.AxisY.LabelStyle.Format = "{0:N0}";
+            area.AxisY.LabelStyle.Font = new Font("Arial", 8);
+            area.AxisY.TitleFont = new Font("Arial", 10, FontStyle.Bold);
+
+
+            // Lấy danh sách các nhân viên duy nhất có doanh thu trong dữ liệu
+            var nhanVienList = listThongKe
+                                  .Select(r => new { MaNhanVien = r.MaNhanVien, HoTen = r.HoTen })
+                                  .Distinct()
+                                  .OrderBy(nv => nv.MaNhanVien);
+
+            if (!nhanVienList.Any())
+            {
+                // Trường hợp này lẽ ra đã được xử lý ở button1_Click, nhưng thêm vào để đảm bảo
+                MessageBox.Show("Không có dữ liệu tổng doanh thu theo tháng cho nhân viên.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Danh sách màu tùy chỉnh cho các series
+            List<Color> customColors = new List<Color>
+            {
+                Color.DodgerBlue, Color.OrangeRed, Color.ForestGreen, Color.Purple, Color.Goldenrod,
+                Color.DeepPink, Color.Teal, Color.DarkSlateBlue, Color.Firebrick, Color.LimeGreen,
+                Color.DarkCyan, Color.DarkViolet, Color.IndianRed, Color.MediumSeaGreen, Color.SlateBlue
+            };
+            int colorIndex = 0;
+
+            // Tạo các series cho từng nhân viên
+            foreach (var nv in nhanVienList)
+            {
+                string seriesName = nv.MaNhanVien;
+                Series series = new Series(seriesName)
+                {
+                    ChartType = SeriesChartType.Column,
+                    IsValueShownAsLabel = true,
+                    LabelFormat = "{0:N0}",
+                    Font = new Font("Arial", 8, FontStyle.Bold),
+                    Color = customColors[(colorIndex++) % customColors.Count],
+                    Legend = "MyLegend"
+                };
+                series["PointWidth"] = "0.8";
+                series.XValueType = ChartValueType.String; // RẤT QUAN TRỌNG
+
+                // Lọc dữ liệu của nhân viên hiện tại, đã sắp xếp theo năm, tháng
+                var rowsForEmployee = listThongKe
+                                        .Where(r => r.MaNhanVien == nv.MaNhanVien)
+                                        .OrderBy(r => r.Nam)
+                                        .ThenBy(r => r.Ky);
+
+                // Duyệt qua TẤT CẢ các tháng duy nhất đã xác định trên trục X
+                foreach (var monthLabel in xAxisLabels)
+                {
+                    int monthFromLabel = int.Parse(monthLabel.Split(' ')[1]);
+                    int yearFromLabel = int.Parse(monthLabel.Split('(')[1].TrimEnd(')'));
+
+                    // Tìm dữ liệu tương ứng cho tháng và năm này của nhân viên hiện tại
+                    var currentData = rowsForEmployee.FirstOrDefault(r =>
+                        r.Ky == monthFromLabel &&
+                        r.Nam == yearFromLabel
+                    );
+
+                    decimal tongDoanhThu = 0; // Sử dụng decimal cho tiền tệ
+                    string toolTipText = "";
+
+                    if (currentData != null)
+                    {
+                        tongDoanhThu = currentData.TongDoanhThu;
+                        toolTipText = $"Tháng: {monthFromLabel}/{yearFromLabel}\nNhân viên: {nv.HoTen} ({nv.MaNhanVien})\nDoanh thu: {tongDoanhThu:N0} VNĐ";
+                    }
+                    else
+                    {
+                        toolTipText = $"Tháng: {monthFromLabel}/{yearFromLabel}\nNhân viên: {nv.HoTen} ({nv.MaNhanVien})\nDoanh thu: 0 VNĐ";
+                    }
+
+                    series.Points.AddXY(monthLabel, tongDoanhThu); // Add decimal value
+                    series.Points.Last().ToolTip = toolTipText;
+                }
+                chart1.Series.Add(series);
+            }
+
+            // Cấu hình chú giải (Legend)
+            chart1.Legends.Clear();
+            Legend legend = new Legend("MyLegend")
+            {
+                Docking = Docking.Right,
+                Alignment = StringAlignment.Near,
+                BackColor = Color.White,
+                BorderColor = Color.LightGray,
+                BorderWidth = 1,
+                Font = new Font("Arial", 9)
+            };
+            chart1.Legends.Add(legend);
+
+            // Điều chỉnh lại tỷ lệ trục và kiểu nhãn trục X
+            area.RecalculateAxesScale();
+            area.AxisX.LabelAutoFitStyle = LabelAutoFitStyles.IncreaseFont
+                                         | LabelAutoFitStyles.DecreaseFont
+                                         | LabelAutoFitStyles.WordWrap;
+            area.AxisX.LabelStyle.Angle = -45;
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
         {
 
         }

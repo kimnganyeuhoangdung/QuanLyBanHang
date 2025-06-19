@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Phiếu Bán Hàng</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9fbfd;
+            display: flex;
+            /* Make body a flex container */
+            flex-direction: column;
+            /* Stack header, main content, footer vertically */
+            min-height: 100vh;
+            /* Ensure body takes at least full viewport height */
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            background-color: #575454;
+            padding: 10px 20px;
+            flex-shrink: 0;
+            /* Prevent header from shrinking */
+            /* We'll use this height to offset the sidebar's top position */
+        }
+
+        .logo {
+            font-size: 24px;
+            color: white;
+            margin-right: auto;
+        }
+
+        .nav {
+            align-items: center;
+            padding: 5px;
+            position: relative;
+            left: -350px;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 5px;
+        }
+
+        .nav li {
+            margin: 0 15px;
+        }
+
+        .nav a {
+            color: lightgrey;
+            text-decoration: none;
+        }
+
+        .nav a:hover {
+            color: white;
+        }
+
+        /* --- NEW: Wrapper for sidebar and main content --- */
+        .main-layout-wrapper {
+            display: flex;
+            /* Arrange sidebar and main content area horizontally */
+            flex-grow: 1;
+            /* This wrapper takes all available vertical space */
+            /* Add this if you want some margin between header and sidebar/content */
+            /* margin-top: 20px; */
+        }
+
+        /* --- Sidebar Styling --- */
+        .sidebar {
+            width: 260px;
+            /* Adjust width as needed */
+            background-color: #ffffff;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            flex-shrink: 0;
+            /* Prevent sidebar from shrinking */
+
+            /* Sticky properties */
+            position: sticky;
+            top: 0;
+            /* This will make it stick to the very top of the viewport */
+            height: 100vh;
+            /* Make it fill the full viewport height */
+            overflow-y: auto;
+            /* Add scrolling for sidebar content if it overflows */
+        }
+
+        /* Adjust internal sidebar elements to account for fixed header, as the sidebar itself is sticky at top:0 */
+        .sidebar h2 {
+            /* Heading inside the sidebar */
+            font-size: 24px;
+            color: #333;
+            /* Bỏ margin-top ở đây, thay vào đó điều chỉnh top của sticky */
+            margin-top: 20px;
+            /* Đảm bảo không có margin top thừa */
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            /* Make this h2 sticky within the sidebar */
+            top: 0;
+            /* Sát đỉnh của vùng cuộn sidebar */
+            background-color: #ffffff;
+            z-index: 1;
+            /* Ensures it's above scrolling menu content */
+            padding-left: 20px;
+            /* Match sidebar's own padding */
+            padding-right: 20px;
+            /* Match sidebar's own padding */
+            margin-left: -20px;
+            /* Counteract sidebar's padding for full width */
+            margin-right: -20px;
+            /* Counteract sidebar's padding for full width */
+            box-sizing: border-box;
+            /* Bỏ padding-top ở đây vì nó không cần thiết khi sidebar đã bắt đầu đúng chỗ */
+            /* padding-top: calc(10px + 20px); */
+        }
+
+        .filter-box {
+            margin-bottom: 20px;
+            position: sticky;
+            /* Make filter box sticky within the sidebar */
+            top: 60px;
+            /* Adjust based on sidebar h2 height + some margin */
+            background-color: #ffffff;
+            z-index: 1;
+            padding-bottom: 10px;
+            margin-left: -20px;
+            /* Counteract sidebar's padding */
+            margin-right: -20px;
+            /* Counteract sidebar's padding */
+            padding-left: 20px;
+            padding-right: 20px;
+            box-sizing: border-box;
+        }
+
+        .filter-box input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .filter-box input:focus {
+            border-color: #007bff;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+            overflow-y: auto;
+            /* Make menu items scrollable inside the sticky sidebar */
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .sidebar-menu li a:hover {
+            background-color: #e6f7ff;
+            color: #007bff;
+        }
+
+        /* --- Main Content Area Styling --- */
+        .main-content-area {
+            /* Changed from .main-container to .main-content-area for clarity */
+            flex-grow: 1;
+            /* Take remaining horizontal space */
+            padding: 30px;
+            background-color: #f9fbfd;
+            box-sizing: border-box;
+            /* Include padding in dimensions */
+            display: flex;
+            /* Make it a flex container for its own H1 and content grid */
+            flex-direction: column;
+            /* Stack H1 and content grid vertically */
+        }
+
+        .main-content-area .page-title-h1 {
+            /* Targeting the main H1 for the overall content section */
+            text-align: center;
+            padding: 20px;
+            color: #333;
+            font-size: 25px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            /* Add some space below the main H1 */
+            flex-shrink: 0;
+            /* Prevent it from shrinking */
+        }
+
+        .main-content-grid {
+            /* Wrapper for the grid content below the H1 */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1000px;
+            /* Limit content width */
+            margin: 0 auto;
+            /* Center content horizontally */
+            flex-grow: 1;
+            /* Thêm align-items: stretch; nếu muốn rõ ràng, nhưng đây là mặc định của grid item */
+            align-items: stretch;
+            /* Đảm bảo các grid item căng đầy chiều cao của hàng */
+        }
+
+        /* Thêm CSS cho các div con trực tiếp trong main-content-grid */
+        .main-content-grid>div {
+            display: flex;
+            /* Biến mỗi div con thành một flex container */
+            flex-direction: column;
+            /* Xếp các phần tử con (h2, p, ul) theo chiều dọc */
+            justify-content: flex-start;
+            /* Căn nội dung sát lên trên (mặc định) */
+            /* Background và padding để dễ nhìn hơn (có thể bỏ đi sau này) */
+            /* background-color: #f0f0f0; */
+            /* padding: 15px; */
+            /* border-radius: 8px; */
+            height: 100%;
+            /* Rất quan trọng: Đảm bảo flex container này chiếm 100% chiều cao của ô lưới của nó */
+        }
+
+        footer {
+            background-color: #575454;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 16px;
+            width: 100%;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+            /* Prevent footer from shrinking */
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        .footer-icons {
+            margin-top: 10px;
+        }
+
+        .footer-icons a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        .image-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            /* khoảng cách giữa ảnh */
+            margin-top: 10px;
+        }
+
+        .image-row img {
+            width: 30%;
+            /* mỗi ảnh chiếm khoảng 1/3 hàng */
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+
+        .footer-icons a:hover {
+            color: #007bff;
+        }
+
+        .introduce,
+        .add_staff,
+        .update_staff,
+        .delete_staff,
+        .reset_staff,
+        .find_staff,
+        .note_staff {
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">Poly Cafe System</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="#">Giới Thiệu</a></li>
+                <li><a href="contact.html">Liên Hệ Với Chúng Tôi</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="main-layout-wrapper">
+        <aside class="sidebar">
+            <h2>Hướng dẫn sử dụng</h2>
+            <div class="filter-box">
+                <input type="text" placeholder="Tìm kiếm hướng dẫn...">
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="login.html"><i class="fa fa-chart-bar"></i> Đăng nhập</a></li>
+                <li><a href="staff.html"><i class="fas fa-users"></i> Quản Lý Nhân Viên</a></li>
+                <li><a href="product_type.html"><i class="fas fa-box"></i> Quản Lý Loại Sản Phẩm</a></li>
+                <li><a href="product.html"><i class="fas fa fa-shopping-cart"></i> Quản Lý Sản Phẩm</a></li>
+                <li><a href="invoices.html"><i class="fa fa-receipt"></i> Quản Lý Phiếu Bán Hàng</a></li>
+                <li><a href="card.html"><i class="fa fa-id-card"></i> Quản Lý Thẻ Lưu Động</a></li>
+                <li><a href="setting.html"><i class="fas fa-cog"></i> Cài Đặt</a></li>
+                <li><a href="statistical.html"><i class="fa fa-chart-bar"></i> Quản Lý Thống Kê</a></li>
+                <li><a href="forgotPass.html"><i class="fa fa-chart-bar"></i> Quên mật khẩu</a></li>
+            </ul>
+        </aside>
+        <main class="main-content-area">
+            <h1 class="page-title-h1">📘 HƯỚNG DẪN SỬ DỤNG - CHỨC NĂNG QUẢN LÝ PHIẾU BÁN HÀNG</h1>
+
+            <div class="main-content-grid">
+                <div class="introduce">
+                    <h2>🔰 1. Giới thiệu chung</h2>
+                    <p>Chức năng “Quản lý Phiếu Bán Hàng” cho phép người dùng tạo, chỉnh sửa, xoá, tìm kiếm và theo dõi
+                        các phiếu bán hàng, bao gồm thông tin tổng thể (phiếu) và chi tiết các sản phẩm đã bán (chi tiết
+                        phiếu).
+                        <br> <br>
+                        <strong>Giao diện gồm 3 phần chính:</strong>
+                    </p>
+                    <ul>
+                        <li>
+                            Thông tin phiếu: Nhập các thông tin như Mã phiếu, khách hàng, nhân viên, ngày tạo, trạng
+                            thái và tổng tiền. </li>
+                        <li>
+                            Chi tiết phiếu: Thêm sản phẩm vào phiếu, bao gồm đơn giá, số lượng và thành tiền. </li>
+                        <li>
+                            Danh sách: Hiển thị danh sách phiếu đã tạo và chi tiết sản phẩm trong từng phiếu.
+                        </li>
+
+                    </ul>
+                    <center>
+                        <img src="Invoices/pbh1.png" alt="" width="700px">
+                    </center>
+                </div>
+
+
+
+                <div class="add_staff">
+                    <h2>➕ 2. Tạo phiếu bán hàng mới</h2>
+                    <p>Tại mục Thông tin phiếu, nhập đầy đủ các trường sau:</p>
+                    <ul>
+                        <li>Mã Phiếu (VD: PBH014)</li>
+                        <li>Mã Thẻ: Chọn thẻ thành viên nếu có</li>
+                        <li>Mã NV: Chọn nhân viên tạo phiếu</li>
+                        <li>Ngày tạo: Mặc định là ngày hiện tại hoặc tuỳ chỉnh từ lịch</li>
+                        <li>Trạng thái: Chọn “Chờ xác nhận” hoặc “Đã thanh toán”</li>
+                        <li>Tổng tiền: Ban đầu là 0, sẽ tự động cập nhật sau khi thêm sản phẩm</li>
+                    </ul>
+                    <center>
+                        <img src="Invoices/pbh02.png" alt="" width="700px">
+                    </center>
+                    <p>➡ Nhấn Thêm (biểu tượng ➕) để tạo phiếu</p>
+                    <center>
+                        <img src="Invoices/pbh01.png" alt="" width="200px">
+                    </center>
+                    <p>➡ Phiếu mới sẽ xuất hiện trong danh sách bên dưới.</p>
+                    <center>
+                        <img src="Invoices/pbh2.png" alt="" width="700px">
+                    </center>
+                </div>
+
+                <div class="update_staff">
+                    <h2>🧾 3. Thêm sản phẩm vào chi tiết phiếu</h2>
+                    <p>Sau khi tạo phiếu, chuyển sang phần Chi tiết để thêm sản phẩm:</p>
+                    <p>Sản phẩm: Chọn từ danh sách thả xuống</p>
+                    <p>Đơn giá: Hiển thị tự động theo sản phẩm</p>
+                    <p>Số lượng: Nhập số lượng cần bán</p>
+                    <p>Thành tiền: Tự động tính = Đơn giá × Số lượng</p>
+                    <center>
+                        <img src="Invoices/pbh03.png" alt="" width="500px">
+                    </center>
+                    <p>➡ Nhấn Thêm (biểu tượng ➕ bên Chi tiết)</p>
+                    <center>
+                        <img src="Invoices/ct01.png" alt="" width="200px">
+                    </center>
+                    <p>➡ Sản phẩm sẽ được liệt kê trong bảng Chi tiết phiếu</p>
+                    <center>
+                        <img src="Invoices/pbh06.png" alt="" width="600px">
+                    </center>
+                    <p>🧮 Tổng tiền trong phiếu sẽ tự động cộng dồn từ các sản phẩm đã thêm.</p>
+                    <center>
+                        <img src="Invoices/pbh07.png" alt="" width="400px">
+                    </center>
+                </div>
+
+                <div class="delete_staff">
+                    <h2>🛠️ 4. Sửa thông tin phiếu / sản phẩm</h2>
+                    <p>• Cập nhật Phiếu:</p>
+                    <p>→ Chọn phiếu trong danh sách → Chỉnh sửa thông tin → Nhấn Cập nhật (biểu tượng ✏️)</p>
+                    <center>
+                        <img src="Invoices/pbh2.png" alt="" width="500px">
+                    </center>
+                    <center>
+                        <img src="Invoices/pbh08.png" alt="" width="500px">
+                    </center>
+                    <center>
+                        <img src="Invoices/pbh3.png" alt="" width="200px">
+                    </center>
+                    <p>• Cập nhật Chi tiết sản phẩm:</p>
+                    <p>→ Chọn dòng sản phẩm trong Chi tiết phiếu → Chỉnh lại số lượng hoặc sản phẩm → Nhấn Cập nhật</p>
+                    <center>
+                        <img src="Invoices/pbh06.png" alt="" width="500px">
+                    </center>
+                    <center>
+                        <img src="Invoices/ct2.png" alt="" width="500px">
+                    </center>
+                    <center>
+                        <img src="Invoices/pbh3.png" alt="" width="200px">
+                    </center>
+                    <p>➡ Hệ thống sẽ tự động tính lại Thành tiền và Tổng tiền tương ứng.</p>
+
+                    <img src="Invoices/ct3.png" alt="Ảnh 1" style="width: 700px;height: 100px;">
+                    <br>
+                    <img src="Invoices/ct4.png" alt="Ảnh 2" style="width: 700px; height:100px;">
+
+                </div>
+
+                <div class="reset_staff">
+                    <h2>❌ 5. Xoá phiếu hoặc chi tiết sản phẩm</h2>
+                    <p>Xoá Phiếu:</p>
+                    <p>→ Chọn phiếu cần xoá trong danh sách → Nhấn Xoá (biểu tượng dấu X đỏ)
+                        → Xác nhận khi hệ thống hỏi
+                    </p>
+                    <center>
+                        <img src="Invoices/pbh09.png" alt="" width="500px">
+                    </center>
+                    <center>
+                        <img src="Invoices/ct5.png" alt="" width="200px">
+                    </center>
+                    <center>
+                        <img src="Invoices/ct6.png" alt="" width="500px">
+                    </center>
+                    <p>Xoá sản phẩm trong phiếu:</p>
+                    <p>→ Chọn dòng cần xoá trong bảng Chi tiết phiếu → Nhấn Xoá ở khu vực Chi tiết</p>
+                    <center>
+                        <img src="Invoices/pbh06.png" alt="" width="500px">
+                    </center>
+                    <center>
+                        <img src="Invoices/ct5.png" alt="" width="200px">
+                    </center>
+                    <center>
+                        <img src="Invoices/ct8.png" alt="" width="500px">
+                    </center>
+                    <p>📌 Lưu ý: Nếu phiếu đang ở trạng thái “Đã thanh toán”, hệ thống sẽ không cho phép sửa/xoá.</p>
+                    <center>
+                        <img src="Invoices/pbh4.png" alt="" width="700px">
+                    </center>
+                </div>
+
+                <div class="find_staff">
+                    <h2>🔄 6. Quay lại / Làm mới</h2>
+                    <p>• Nhấn Quay lại (biểu tượng 🔄) ở cả hai phần (Phiếu và Chi tiết) để:</p>
+                    <center>
+                        <img src="Invoices/pbh5.png" alt="" width="200px">
+                    </center>
+                    <ul>
+                        <li>Xoá dữ liệu đang nhập</li>
+                        <li>Làm mới danh sách từ cơ sở dữ liệu</li>
+                        <li>Đặt lại các trường về trạng thái ban đầu</li>
+                    </ul>
+                    <center>
+                        <img src="Invoices/pbh6.png" alt="" width="600px">
+                    </center>
+                </div>
+
+                <div class="note_staff">
+                    <h2>🔍 7. Tìm kiếm phiếu bán hàng</h2>
+                    <p>Mã phiếu phải là duy nhất.</p>
+
+                    <ul>
+                        <li>Chọn Mã Phiếu từ danh sách thả xuống tại khu vực tìm kiếm</li>
+                        <br>
+                        <center>
+                            <img src="Invoices/pbh7.png" alt="" width="400px">
+                        </center>
+
+                    </ul>
+                    <p>➡ Hệ thống sẽ hiển thị thông tin phiếu tương ứng kèm theo danh sách sản phẩm chi tiết.</p>
+                    <center>
+                        <img src="Invoices/pbh8.png" alt="" width="400px">
+                    </center>
+                </div>
+                <div class="note_staff">
+                    <h2>📤 8. Xuất phiếu bán hàng</h2>
+                    <ul>
+                        <li>Sau khi hoàn tất việc thêm sản phẩm và kiểm tra phiếu, nhấn Xuất Phiếu</li>
+                        <br>
+                        <center>
+                            <img src="Invoices/pbh9.png" alt="" width="400px">
+                        </center>
+                        <br>
+                        <li>Phiếu sẽ được lưu ra file .txt để in hoặc gửi khách hàng</li>
+                        <br>
+                        <center>
+                            <img src="Invoices/pbh10.png" alt="" width="400px">
+                        </center>
+                    </ul>
+
+                </div>
+                <div class="note_staff">
+                    <h2>📌 9. Ghi chú</h2>
+                    <ul>
+                        <li>Mã Phiếu phải là duy nhất.</li>
+                        <li>Không thể thêm sản phẩm nếu chưa tạo phiếu.</li>
+                        <li>Tổng tiền được tự động tính từ các chi tiết sản phẩm.</li>
+                        <li>Chỉ nên chọn những sản phẩm còn hàng.</li>
+                        <li>•Các thao tác cập nhật hoặc xoá cần xác nhận để tránh sai sót.</li>
+                    </ul>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <center>
+            <p>Hệ Thống Quản Lý Bán Hàng PolyCafe</p>
+            <div class="footer-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </center>
+    </footer>
+</body>
+
+</html>

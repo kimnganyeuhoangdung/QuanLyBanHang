@@ -83,16 +83,6 @@ namespace Polycafe_GUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap add1 {
-            get {
-                object obj = ResourceManager.GetObject("add1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap arrows1 {
             get {
                 object obj = ResourceManager.GetObject("arrows1", resourceCulture);
@@ -163,16 +153,6 @@ namespace Polycafe_GUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap entry1 {
-            get {
-                object obj = ResourceManager.GetObject("entry1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap exit {
             get {
                 object obj = ResourceManager.GetObject("exit", resourceCulture);
@@ -196,66 +176,6 @@ namespace Polycafe_GUI.Properties {
         internal static System.Drawing.Bitmap gear {
             get {
                 object obj = ResourceManager.GetObject("gear", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap gears {
-            get {
-                object obj = ResourceManager.GetObject("gears", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icon_card {
-            get {
-                object obj = ResourceManager.GetObject("icon-card", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icon_card_resized {
-            get {
-                object obj = ResourceManager.GetObject("icon-card-resized", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_coffee_shop_64 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-coffee-shop-64", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_coffee_shop_64_resized_24x24 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-coffee-shop-64_resized_24x24", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap icons8_coffeeshop_100 {
-            get {
-                object obj = ResourceManager.GetObject("icons8-coffeeshop-100", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -323,9 +243,9 @@ namespace Polycafe_GUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ogo {
+        internal static System.Drawing.Bitmap Màu_Nâu_ {
             get {
-                object obj = ResourceManager.GetObject("ogo", resourceCulture);
+                object obj = ResourceManager.GetObject("Màu Nâu ", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -373,16 +293,6 @@ namespace Polycafe_GUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap pngtree_coffee_beans_cartoon_background_picture_image_2393962 {
-            get {
-                object obj = ResourceManager.GetObject("pngtree-coffee-beans-cartoon-background-picture-image_2393962", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap poly {
             get {
                 object obj = ResourceManager.GetObject("poly", resourceCulture);
@@ -413,6 +323,16 @@ namespace Polycafe_GUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Sales_by_payment_method {
+            get {
+                object obj = ResourceManager.GetObject("Sales-by-payment-method", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap search {
             get {
                 object obj = ResourceManager.GetObject("search", resourceCulture);
@@ -427,6 +347,16 @@ namespace Polycafe_GUI.Properties {
             get {
                 object obj = ResourceManager.GetObject("Search-globe", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Untitled_Made_with_FlexClip {
+            get {
+                object obj = ResourceManager.GetObject("Untitled_Made_with_FlexClip", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

@@ -1,16 +1,12 @@
-﻿using System;
+﻿using Polycafe_BUS;
+using Polycafe_DTO;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
-using System.IO;
-using Polycafe_DTO;
-using Polycafe_BUS;
 
 namespace Polycafe_GUI
 {
@@ -43,9 +39,15 @@ namespace Polycafe_GUI
             dgvSaleInvoices.Columns.Add(new DataGridViewTextBoxColumn() { Name = "InvoiceIdCol", HeaderText = "Mã Phiếu", DataPropertyName = "InvoiceId", ReadOnly = true });
             dgvSaleInvoices.Columns.Add(new DataGridViewTextBoxColumn() { Name = "CardOwnerNameCol", HeaderText = "Chủ Thẻ", DataPropertyName = "CardOwnerName", ReadOnly = true });
             dgvSaleInvoices.Columns.Add(new DataGridViewTextBoxColumn() { Name = "EmployeeNameCol", HeaderText = "Nhân Viên", DataPropertyName = "EmployeeName", ReadOnly = true });
-            dgvSaleInvoices.Columns.Add(new DataGridViewTextBoxColumn() { Name = "CreatedDateCol", HeaderText = "Ngày Tạo", DataPropertyName = "CreatedDate", ReadOnly = true, DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy HH:mm" } }); dgvSaleInvoices.Columns.Add(new DataGridViewCheckBoxColumn() { Name = "StatusCol", HeaderText = "Trạng Thái", DataPropertyName = "Status", ReadOnly = true });
+            dgvSaleInvoices.Columns.Add(new DataGridViewTextBoxColumn() { Name = "CreatedDateCol", HeaderText = "Ngày Tạo", DataPropertyName = "CreatedDate", ReadOnly = true, DefaultCellStyle = new DataGridViewCellStyle { Format = "dd/MM/yyyy HH:mm" } });
+
+            // Ẩn cột TrangThai (bool)
+            dgvSaleInvoices.Columns.Add(new DataGridViewCheckBoxColumn() { Name = "StatusHiddenCol", HeaderText = "Trạng Thái", DataPropertyName = "Status", Visible = false });
+            // Thay bằng cột hiển thị Trạng thái (string)
+            dgvSaleInvoices.Columns.Add(new DataGridViewTextBoxColumn() { Name = "DisplayStatusCol", HeaderText = "Trạng Thái", DataPropertyName = "DisplayStatus", ReadOnly = true });
+
             // Ẩn các cột MaThe, MaNhanVien nếu không muốn hiển thị trực tiếp
-            // Thêm cột ẩn để lưu MaThe và MaNhanVien nếu cần
+            // Thêm cột ẩn để lưu MaThe và MaNhanVien nếu cần            
             dgvSaleInvoices.Columns.Add(new DataGridViewTextBoxColumn() { Name = "CardIdHiddenCol", DataPropertyName = "CardId", Visible = false });
             dgvSaleInvoices.Columns.Add(new DataGridViewTextBoxColumn() { Name = "EmployeeIdHiddenCol", DataPropertyName = "EmployeeId", Visible = false });
 
@@ -170,7 +172,7 @@ namespace Polycafe_GUI
             btnDeleteDetail.Enabled = true;
 
             // Vô hiệu hóa nút Xuất Phiếu khi reset form
-            btnExport.Enabled = false;
+            //btnExport.Enabled = false;
 
             // Reset cboFind về mục gợi ý
             cboFind.SelectedIndex = 0;
@@ -212,7 +214,7 @@ namespace Polycafe_GUI
                     {
                         rdoPending.Checked = true;
                     }
-                    // txtTotalQuantity.Text = selectedInvoice.TotalQuantity.ToString();
+                    //txtTotalQuantity.Text = selectedInvoice.TotalQuantity.ToString();
                     txtTotalAmount.Text = selectedInvoice.TotalAmount.ToString("N0");
 
                     txtInvoiceId.Enabled = false; // Không cho phép sửa Mã phiếu khi đang cập nhật
@@ -231,7 +233,7 @@ namespace Polycafe_GUI
                     btnDeleteDetail.Enabled = !isPaid;
 
                     // Kích hoạt/vô hiệu hóa nút Xuất Phiếu
-                    btnExport.Enabled = isPaid; // Chỉ kích hoạt nếu đã thanh toán (Trạng thái = 1)
+                    rdoPaid.Enabled = true; // Chỉ kích hoạt nếu đã thanh toán (Trạng thái = 1)
 
                     // Load chi tiết của phiếu này vào dgvSaleInvoiceDetails
                     LoadSaleInvoiceDetailsToDataGridView(invoiceId);
@@ -672,7 +674,7 @@ namespace Polycafe_GUI
                     btnDeleteDetail.Enabled = !isPaid;
 
                     // Kích hoạt/vô hiệu hóa nút Xuất Phiếu
-                    btnExport.Enabled = isPaid;
+                    //btnExport.Enabled = isPaid;
 
                     LoadSaleInvoiceDetailsToDataGridView(selectedInvoice.InvoiceId);
                 }
@@ -691,89 +693,89 @@ namespace Polycafe_GUI
 
         }
 
-        private void btnExport_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (dgvSaleInvoices.SelectedRows.Count == 0)
-                {
-                    MessageBox.Show("Vui lòng chọn một phiếu bán hàng để xuất hóa đơn.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+        //private void btnExport_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (dgvSaleInvoices.SelectedRows.Count == 0)
+        //        {
+        //            MessageBox.Show("Vui lòng chọn một phiếu bán hàng để xuất hóa đơn.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //            return;
+        //        }
 
-                // Lấy MaPhieu từ dòng được chọn
-                string invoiceId = dgvSaleInvoices.SelectedRows[0].Cells["InvoiceIdCol"].Value.ToString();
+        //        // Lấy MaPhieu từ dòng được chọn
+        //        string invoiceId = dgvSaleInvoices.SelectedRows[0].Cells["InvoiceIdCol"].Value.ToString();
 
-                // Lấy toàn bộ thông tin phiếu và chi tiết từ BLL
-                SaleInvoiceDTO invoiceToExport = _saleInvoiceBLL.GetSaleInvoiceById(invoiceId);
+        //        // Lấy toàn bộ thông tin phiếu và chi tiết từ BLL
+        //        SaleInvoiceDTO invoiceToExport = _saleInvoiceBLL.GetSaleInvoiceById(invoiceId);
 
-                if (invoiceToExport == null)
-                {
-                    MessageBox.Show("Không tìm thấy thông tin phiếu để xuất hóa đơn.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+        //        if (invoiceToExport == null)
+        //        {
+        //            MessageBox.Show("Không tìm thấy thông tin phiếu để xuất hóa đơn.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //            return;
+        //        }
 
-                // Kiểm tra trạng thái phiếu (đảm bảo đã thanh toán)
-                if (!invoiceToExport.Status)
-                {
-                    MessageBox.Show("Chỉ có thể xuất hóa đơn cho các phiếu đã thanh toán.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+        //        // Kiểm tra trạng thái phiếu (đảm bảo đã thanh toán)
+        //        if (!invoiceToExport.Status)
+        //        {
+        //            MessageBox.Show("Chỉ có thể xuất hóa đơn cho các phiếu đã thanh toán.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //            return;
+        //        }
 
-                // Mở hộp thoại SaveFileDialog để người dùng chọn nơi lưu file
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.Filter = "Text file (*.txt)|*.txt";
-                saveFileDialog.FileName = $"HoaDon_{invoiceToExport.InvoiceId}.txt"; // Tên file mặc định
-                saveFileDialog.Title = "Lưu hóa đơn";
+        //        // Mở hộp thoại SaveFileDialog để người dùng chọn nơi lưu file
+        //        SaveFileDialog saveFileDialog = new SaveFileDialog();
+        //        saveFileDialog.Filter = "Text file (*.txt)|*.txt";
+        //        saveFileDialog.FileName = $"HoaDon_{invoiceToExport.InvoiceId}.txt"; // Tên file mặc định
+        //        saveFileDialog.Title = "Lưu hóa đơn";
 
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    string filePath = saveFileDialog.FileName;
+        //        if (saveFileDialog.ShowDialog() == DialogResult.OK)
+        //        {
+        //            string filePath = saveFileDialog.FileName;
 
-                    // Bắt đầu tạo nội dung hóa đơn
-                    StringBuilder sb = new StringBuilder();
-                    sb.AppendLine("******************************************************************");
-                    sb.AppendLine("                         HÓA ĐƠN BÁN HÀNG                         ");
-                    sb.AppendLine("******************************************************************");
-                    sb.AppendLine($"Mã Phiếu:       {invoiceToExport.InvoiceId}");
-                    sb.AppendLine($"Mã Nhân Viên:   {invoiceToExport.EmployeeId} ({invoiceToExport.EmployeeName})");
-                    // Thẻ có thể null, cần kiểm tra để tránh lỗi
-                    sb.AppendLine($"Mã Thẻ:         {(string.IsNullOrEmpty(invoiceToExport.CardId) ? "N/A" : invoiceToExport.CardId + " (" + invoiceToExport.CardOwnerName + ")")}");
-                    sb.AppendLine($"Ngày Tạo:       {invoiceToExport.CreatedDate:dd/MM/yyyy HH:mm}");
-                    sb.AppendLine($"Trạng Thái:     {(invoiceToExport.Status ? "Đã thanh toán" : "Chờ xác nhận")}");
-                    sb.AppendLine("------------------------------------------------------------------");
-                    sb.AppendLine("Chi tiết sản phẩm:");
-                    sb.AppendLine("------------------------------------------------------------------");
-                    sb.AppendLine(string.Format("{0,-15} {1,-15} {2,10} {3,10} {4,12}", "Mã Sản phẩm", "Tên Sản phẩm", "Đơn Giá", "Số Lượng", "Thành Tiền"));
-                    sb.AppendLine("------------------------------------------------------------------");
+        //            // Bắt đầu tạo nội dung hóa đơn
+        //            StringBuilder sb = new StringBuilder();
+        //            sb.AppendLine("******************************************************************");
+        //            sb.AppendLine("                         HÓA ĐƠN BÁN HÀNG                         ");
+        //            sb.AppendLine("******************************************************************");
+        //            sb.AppendLine($"Mã Phiếu:       {invoiceToExport.InvoiceId}");
+        //            sb.AppendLine($"Mã Nhân Viên:   {invoiceToExport.EmployeeId} ({invoiceToExport.EmployeeName})");
+        //            // Thẻ có thể null, cần kiểm tra để tránh lỗi
+        //            sb.AppendLine($"Mã Thẻ:         {(string.IsNullOrEmpty(invoiceToExport.CardId) ? "N/A" : invoiceToExport.CardId + " (" + invoiceToExport.CardOwnerName + ")")}");
+        //            sb.AppendLine($"Ngày Tạo:       {invoiceToExport.CreatedDate:dd/MM/yyyy HH:mm}");
+        //            sb.AppendLine($"Trạng Thái:     {(invoiceToExport.Status ? "Đã thanh toán" : "Chờ xác nhận")}");
+        //            sb.AppendLine("------------------------------------------------------------------");
+        //            sb.AppendLine("Chi tiết sản phẩm:");
+        //            sb.AppendLine("------------------------------------------------------------------");
+        //            sb.AppendLine(string.Format("{0,-15} {1,-15} {2,10} {3,10} {4,12}", "Mã Sản phẩm", "Tên Sản phẩm", "Đơn Giá", "Số Lượng", "Thành Tiền"));
+        //            sb.AppendLine("------------------------------------------------------------------");
 
-                    foreach (var detail in invoiceToExport.InvoiceDetails)
-                    {
-                        sb.AppendLine(string.Format("{0,-15} {1,-15} {2,9} {3,8:N0} {4,13:N0}",
-                            detail.ProductId,
-                            detail.ProductName,
-                            detail.UnitPrice,
-                            detail.Quantity,
-                            detail.LineAmount));
-                    }
-                    sb.AppendLine("------------------------------------------------------------------");
-                    sb.AppendLine($"Tổng Số Lượng:  {invoiceToExport.TotalQuantity}");
-                    sb.AppendLine($"Tổng Tiền:      {invoiceToExport.TotalAmount:N0} VNĐ");
-                    sb.AppendLine("******************************************************************");
-                    sb.AppendLine("Cảm ơn quý khách đã mua hàng!");
-                    sb.AppendLine("******************************************************************");
+        //            foreach (var detail in invoiceToExport.InvoiceDetails)
+        //            {
+        //                sb.AppendLine(string.Format("{0,-15} {1,-15} {2,9} {3,8:N0} {4,13:N0}",
+        //                    detail.ProductId,
+        //                    detail.ProductName,
+        //                    detail.UnitPrice,
+        //                    detail.Quantity,
+        //                    detail.LineAmount));
+        //            }
+        //            sb.AppendLine("------------------------------------------------------------------");
+        //            sb.AppendLine($"Tổng Số Lượng:  {invoiceToExport.TotalQuantity}");
+        //            sb.AppendLine($"Tổng Tiền:      {invoiceToExport.TotalAmount:N0} VNĐ");
+        //            sb.AppendLine("******************************************************************");
+        //            sb.AppendLine("Cảm ơn quý khách đã mua hàng!");
+        //            sb.AppendLine("******************************************************************");
 
-                    // Ghi nội dung vào file
-                    File.WriteAllText(filePath, sb.ToString(), Encoding.UTF8); // Sử dụng UTF8 để tránh lỗi font tiếng Việt
+        //            // Ghi nội dung vào file
+        //            File.WriteAllText(filePath, sb.ToString(), Encoding.UTF8); // Sử dụng UTF8 để tránh lỗi font tiếng Việt
 
-                    MessageBox.Show($"Hóa đơn đã được xuất thành công tới:\n{filePath}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi xuất hóa đơn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        //            MessageBox.Show($"Hóa đơn đã được xuất thành công tới:\n{filePath}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Lỗi khi xuất hóa đơn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -835,7 +837,7 @@ namespace Polycafe_GUI
                     btnDeleteDetail.Enabled = !isPaid;
 
                     // Kích hoạt/vô hiệu hóa nút Xuất Phiếu
-                    btnExport.Enabled = isPaid;
+                    //btnExport.Enabled = isPaid;
                     foreach (DataGridViewRow row in dgvSaleInvoices.Rows)
                     {
                         if (row.Cells[0].Value.ToString() == selectedInvoice.InvoiceId)
@@ -860,7 +862,215 @@ namespace Polycafe_GUI
                     btnDeleteDetail.Enabled = true;
                 }
             }
-           
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rdoPaid_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // 1. Initial selection check
+                if (dgvSaleInvoices.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn một phiếu bán hàng để xử lý.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Get MaPhieu from the selected row (more reliable than txtInvoiceId for current action)
+                string selectedInvoiceId = dgvSaleInvoices.SelectedRows[0].Cells["InvoiceIdCol"].Value?.ToString();
+
+                // --- Retrieve the full invoice details for validation ---
+                // It's crucial to get the up-to-date details from the BLL, not just what's in the textboxes,
+                // especially for validation purposes like checking if it has items.
+                SaleInvoiceDTO invoiceToProcess = _saleInvoiceBLL.GetSaleInvoiceById(selectedInvoiceId);
+
+                if (invoiceToProcess == null)
+                {
+                    MessageBox.Show("Không tìm thấy thông tin phiếu bán hàng được chọn.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // 2. Validate for Empty Invoice Details before proceeding with payment or export
+                // Check if there are any details associated with this invoice
+                // (Assuming InvoiceDetails list is populated by GetSaleInvoiceById)
+                if (invoiceToProcess.InvoiceDetails == null || !invoiceToProcess.InvoiceDetails.Any())
+                {
+                    MessageBox.Show("Phiếu bán hàng này không có chi tiết sản phẩm. Không thể thanh toán hoặc xuất hóa đơn.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // --- Prepare the updated invoice DTO based on current form values ---
+                SaleInvoiceDTO updatedInvoice = new SaleInvoiceDTO
+                {
+                    InvoiceId = selectedInvoiceId, // Use the ID from the selected row
+                    CardId = cboCardId.SelectedValue?.ToString(),
+                    EmployeeId = cboEmployeeId.SelectedValue?.ToString(),
+                    CreatedDate = dtpCreatedDate.Value,
+                    Status = rdoPaid.Checked // This reflects the intended status change
+                };
+
+                // Populate details for 'updatedInvoice' from dgvSaleInvoiceDetails
+                foreach (DataGridViewRow row in dgvSaleInvoiceDetails.Rows)
+                {
+                    if (row.IsNewRow) continue;
+
+                    // Ensure all cells have values and are convertible
+                    if (row.Cells["ProductIdCol"].Value == null ||
+                        row.Cells["QuantityCol"].Value == null ||
+                        row.Cells["UnitPriceCol"].Value == null ||
+                        row.Cells["LineAmountCol"].Value == null ||
+                        row.Cells["DetailIdHiddenCol"].Value == null) // Make sure DetailIdHiddenCol exists and has value
+                    {
+                        // Log or handle incomplete rows if necessary. For now, skip if incomplete.
+                        continue;
+                    }
+
+                    SaleInvoiceDetailDTO detail = new SaleInvoiceDetailDTO
+                    {
+                        Id = Convert.ToInt32(row.Cells["DetailIdHiddenCol"].Value), // Must get old detail Id
+                        InvoiceId = selectedInvoiceId,
+                        ProductId = row.Cells["ProductIdCol"].Value.ToString(),
+                        Quantity = Convert.ToInt32(row.Cells["QuantityCol"].Value),
+                        UnitPrice = Convert.ToDecimal(row.Cells["UnitPriceCol"].Value),
+                        LineAmount = Convert.ToDecimal(row.Cells["LineAmountCol"].Value)
+                    };
+                    // Initialize the list if it's null (good practice for DTOs)
+                    if (updatedInvoice.InvoiceDetails == null)
+                    {
+                        updatedInvoice.InvoiceDetails = new List<SaleInvoiceDetailDTO>();
+                    }
+                    updatedInvoice.InvoiceDetails.Add(detail);
+                }
+
+                // --- Confirmation for Payment (if status is being set to Paid) ---
+                // Only ask for confirmation if the current status is UNPAID (or different)
+                // and the user is trying to set it to PAID via rdoPaid.Checked.
+                if (!invoiceToProcess.Status && rdoPaid.Checked)
+                {
+                    DialogResult confirmPay = MessageBox.Show(
+                        $"Bạn có chắc chắn muốn thanh toán phiếu bán hàng '{selectedInvoiceId}' không?",
+                        "Xác nhận thanh toán",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                    if (confirmPay == DialogResult.No)
+                    {
+                        // If user cancels, revert the radio button (optional, but good UX)
+                        rdoPending.Checked = true; // Assuming you have an rdoUnpaid
+                        rdoPaid.Checked = false;
+                        return; // Stop the process
+                    }
+                }
+
+                // --- Exporting the Invoice (Remains mostly the same) ---
+                // Use 'invoiceToProcess' for export as it's the full, verified DTO from BLL.
+                // If you plan to update the DTO before export (e.g., if TotalAmount is calculated here),
+                // then merge 'updatedInvoice' data into 'invoiceToProcess' or use 'updatedInvoice' directly.
+                // Given the previous code, invoiceToProcess is the one with EmployeeName, CardOwnerName, etc.
+                // So, it's generally better to update invoiceToProcess with current form data IF you also want
+                // to export changes not yet saved to DB, otherwise, export the one from DB.
+                // For simplicity, let's assume 'updatedInvoice' contains all necessary info for export.
+
+                // If the intent is to export the *currently displayed/modified* invoice,
+                // ensure 'updatedInvoice' has all the auxiliary display properties (EmployeeName, CardOwnerName, etc.)
+                // For now, let's stick to 'invoiceToProcess' for export as it contains auxiliary data.
+                // If 'updatedInvoice' truly reflects the final state to be saved and exported,
+                // then you'd need to populate the names from somewhere or retrieve them after update.
+
+                // Let's assume you want to export the data that is *about to be saved* (from updatedInvoice)
+                // but you need the names which are typically populated by GetSaleInvoiceById.
+                // A better approach is to perform the UPDATE first, then GET the updated invoice for export.
+                // Or, ensure your 'updatedInvoice' DTO has all required fields including names.
+
+                // OPTION 1: Update first, then get the fresh DTO for export (more robust for export data)
+                bool updateSuccess = _saleInvoiceBLL.UpdateSaleInvoice(updatedInvoice);
+                if (!updateSuccess)
+                {
+                    MessageBox.Show("Cập nhật phiếu bán hàng thất bại. Vui lòng thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Now get the fully updated invoice with all details and auxiliary names for export
+                SaleInvoiceDTO finalInvoiceToExport = _saleInvoiceBLL.GetSaleInvoiceById(selectedInvoiceId);
+                if (finalInvoiceToExport == null)
+                {
+                    MessageBox.Show("Lỗi: Không thể lấy thông tin phiếu đã cập nhật để xuất hóa đơn.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Mở hộp thoại SaveFileDialog để người dùng chọn nơi lưu file
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Text file (*.txt)|*.txt";
+                saveFileDialog.FileName = $"HoaDon_{finalInvoiceToExport.InvoiceId}.txt"; // Tên file mặc định
+                saveFileDialog.Title = "Lưu hóa đơn";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = saveFileDialog.FileName;
+
+                    // Bắt đầu tạo nội dung hóa đơn
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine("******************************************************************");
+                    sb.AppendLine("                 HÓA ĐƠN BÁN HÀNG                                 ");
+                    sb.AppendLine("******************************************************************");
+                    sb.AppendLine($"Mã Phiếu:        {finalInvoiceToExport.InvoiceId}");
+                    sb.AppendLine($"Mã Nhân Viên:    {finalInvoiceToExport.EmployeeId} ({finalInvoiceToExport.EmployeeName})");
+                    // Thẻ có thể null, cần kiểm tra để tránh lỗi
+                    sb.AppendLine($"Mã Thẻ:          {(string.IsNullOrEmpty(finalInvoiceToExport.CardId) ? "N/A" : finalInvoiceToExport.CardId + " (" + finalInvoiceToExport.CardOwnerName + ")")}");
+                    sb.AppendLine($"Ngày Tạo:        {finalInvoiceToExport.CreatedDate:dd/MM/yyyy HH:mm}");
+                    sb.AppendLine($"Trạng Thái:      {(finalInvoiceToExport.Status ? "Đã thanh toán" : "Chờ xác nhận")}");
+                    sb.AppendLine("------------------------------------------------------------------");
+                    sb.AppendLine("Chi tiết sản phẩm:");
+                    sb.AppendLine("------------------------------------------------------------------");
+                    sb.AppendLine(string.Format("{0,-15} {1,-15} {2,10} {3,10} {4,12}", "Mã Sản phẩm", "Tên Sản phẩm", "Đơn Giá", "Số Lượng", "Thành Tiền"));
+                    sb.AppendLine("------------------------------------------------------------------");
+
+                    foreach (var detail in finalInvoiceToExport.InvoiceDetails)
+                    {
+                        sb.AppendLine(string.Format("{0,-15} {1,-15} {2,9} {3,8:N0} {4,13:N0}",
+                            detail.ProductId,
+                            detail.ProductName, // Make sure ProductName is populated in your DTO/BLL
+                            detail.UnitPrice,
+                            detail.Quantity,
+                            detail.LineAmount));
+                    }
+                    sb.AppendLine("------------------------------------------------------------------");
+                    sb.AppendLine($"Tổng Số Lượng:   {finalInvoiceToExport.TotalQuantity}");
+                    sb.AppendLine($"Tổng Tiền:       {finalInvoiceToExport.TotalAmount:N0} VNĐ");
+                    sb.AppendLine("******************************************************************");
+                    sb.AppendLine("Cảm ơn quý khách đã mua hàng!");
+                    sb.AppendLine("******************************************************************");
+
+                    // Ghi nội dung vào file
+                    File.WriteAllText(filePath, sb.ToString(), Encoding.UTF8); // Sử dụng UTF8 để tránh lỗi font tiếng Việt
+
+                    MessageBox.Show($"Hóa đơn đã được xuất thành công tới:\n{filePath}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                // Refresh UI after successful update and export
+                LoadSaleInvoicesToDataGridView(); // Tải lại danh sách phiếu
+                ClearInvoiceFields();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi xử lý phiếu bán hàng: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void rdoPaid_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvSaleInvoices_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

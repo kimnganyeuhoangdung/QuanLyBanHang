@@ -13,6 +13,9 @@ using Polycafe_DTO;
 using System.Drawing.Drawing2D;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Microsoft.Web.WebView2.WinForms;
+using Microsoft.Web.WebView2.Core;
+using System.IO;
 
 namespace Polycafe_GUI
 {
@@ -20,10 +23,12 @@ namespace Polycafe_GUI
     public partial class CaiDat : UserControl
     {
 
-        private string connectionString = "Data Source=.;Initial Catalog=QLPolycafe;Integrated Security=True;";
+        private string connectionString = "Data Source=.;Initial Catalog=QLPolyCafe;Integrated Security=True;";
         private NhanVienBLL nhanVienBLL;
-        private HoSo_BUS bus = new HoSo_BUS(); 
+        private HoSo_BUS bus = new HoSo_BUS();
         private string userEmail;
+        private bool isWebViewInitialized = false;
+
 
         public CaiDat(string email)
         {
@@ -32,27 +37,29 @@ namespace Polycafe_GUI
             this.userEmail = email;
             LoadUser();
             LoadGioiThieuPolyCafe(); // Gọi phương thức này khi Form được khởi tạo
-
+            InitializeWebView2();
         }
-        
+
         private void LoadGioiThieuPolyCafe()
         {
 
             string gioiThieu = "\r\n\r\n" +
-                               "\r\n\r\n" +
-                               "\r\n" +
-                               "    Chào mừng bạn đến với Hệ thống quản lý PolyCafe \r\n\r\n" +
-                               "    Giải pháp phần mềm toàn diện được phát triển bởi Nhóm 2.\r\n\r\n" +
-                               "    Các thành viên:\r\n" +
-                               "        * Nguyễn Huỳnh Kim Ngân\r\n" +
-                               "        * Trịnh Minh Uyên\r\n" +
-                               "        * Võ Phan Hoàng Dung\r\n\r\n" +
-                               "    PolyCafe được thiết kế đặc biệt nhằm tối ưu hóa và đơn giản hóa mọi\r\n " +
-                               "   quy trình vận hành trong các quán cà phê, từ quản lý đơn hàng,\r\n" +
-                               "    kho hàng đến chăm sóc khách hàng. Với giao diện trực quan và các\r\n " +
-                               "   tính năng mạnh mẽ, hệ thống hứa hẹn sẽ mang lại hiệu quả vượt trội,\r\n " +
-                               "   giúp chủ quán dễ dàng kiểm soát và phát triển công việc kinh doanh\r\n " +
-                               "   của mình.";
+                     "\r\n\r\n" +
+                     "\r\n" +
+                     "        Chào mừng bạn đến với Hệ thống quản lý PolyCafe \r\n\r\n" +
+                     "        Giải pháp phần mềm toàn diện được phát triển bởi Nhóm 4.\r\n\r\n" +
+                     "        Các thành viên:\r\n" +
+                     "            * Nguyễn Huỳnh Kim Ngân\r\n" +
+                     "            * Trịnh Minh Uyên\r\n" +
+                     "            * Võ Phan Hoàng Dung\r\n" +
+                     "            * Bùi Nhật Huy\r\n\r\n" +
+                     "        PolyCafe được thiết kế đặc biệt nhằm tối ưu hóa và đơn giản hóa mọi\r\n " +
+                     "        quy trình vận hành trong các quán cà phê, từ quản lý nhân viên, sản phẩm,\r\n" +
+                     "        loại sản phẩm, thẻ lưu động, phiếu bán hàng, thống kê theo nhân viên \r\n" +
+                     "        hoặc theo sản phẩm. Với giao diện trực quan và các\r\n" +
+                     "        tính năng mạnh mẽ, hệ thống hứa hẹn sẽ mang lại hiệu quả vượt trội,\r\n " +
+                     "        giúp chủ quán dễ dàng kiểm soát và phát triển công việc kinh doanh\r\n " +
+                     "        của mình.";
 
 
 
@@ -73,6 +80,8 @@ namespace Polycafe_GUI
                 textBox5.Text = userInfo.Rows[0]["HoTen"].ToString();
                 textBox6.Text = userInfo.Rows[0]["Email"].ToString();
                 textBox7.Text = Convert.ToBoolean(userInfo.Rows[0]["VaiTro"]) ? "Quản Lý" : "Nhân viên Bán Hàng ";
+
+                txtEmail.Text = userInfo.Rows[0]["Email"].ToString();
             }
             else
             {
@@ -161,39 +170,68 @@ namespace Polycafe_GUI
             }
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private async void InitializeWebView2()
+        {
+            // Đặt UserDataFolder vào một vị trí có quyền ghi (ví dụ: %LOCALAPPDATA%\YourAppName)
+            string appName = "Polycafe_GUI"; // Thay thế bằng tên ứng dụng của bạn
+            string userDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), appName);
+
+            // Kiểm tra và tạo thư mục nếu chưa tồn tại
+            if (!Directory.Exists(userDataFolder))
+            {
+                Directory.CreateDirectory(userDataFolder);
+            }
+
+            // Tạo môi trường WebView2 với UserDataFolder đã chỉ định
+            var env = await CoreWebView2Environment.CreateAsync(null, userDataFolder);
+            await wbsGuide.EnsureCoreWebView2Async(env);
+
+            // Tải trang web của bạn
+            // wbsGuide.Source = new Uri("https://www.google.com"); // Thay thế bằng URL của bạn
+
+            if (wbsGuide == null)
+            {
+                MessageBox.Show("WebView2 control not found or initialized.");
+                return;
+            }
+
+            try
+            {
+                await wbsGuide.EnsureCoreWebView2Async(null);
+                wbsGuide.CoreWebView2.Navigate("http://quanlypolycafe.atwebpages.com/");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi khởi tạo WebView2: {ex.Message}");
+                return;
+            }
+        }
+
+        private void wbsGuide_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox6_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void CaiDat_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-        
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
-           
-        }
-
-        private void richTextBox2_TextChanged(object sender, EventArgs e)
-        {
-
+            if (tabControl1.SelectedTab == tabPage2 && !isWebViewInitialized)
+            {
+                this.BeginInvoke((MethodInvoker)(async () =>
+                {
+                    try
+                    {
+                        await wbsGuide.EnsureCoreWebView2Async(null);
+                        isWebViewInitialized = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("WebView2 Error: " + ex.Message);
+                    }
+                }));
+            }
         }
     }
-    
+
 }
 
 

@@ -88,12 +88,7 @@ namespace Polycafe_GUI
 
         }
 
-        private void chkShowNewPassword_CheckedChanged_1(object sender, EventArgs e)
-        {
-            txtNewPassword.PasswordChar = chkShowNewPassword.Checked ? '\0' : '*';
-            txtConfirmPassword.PasswordChar = chkShowConfirmPassword.Checked ? '\0' : '*';
-
-        }
+        
 
         private void ForgetPassword_Load(object sender, EventArgs e)
         {
@@ -106,6 +101,8 @@ namespace Polycafe_GUI
         {
 
         }
+
+        
     }
 }
 
@@ -126,7 +123,7 @@ namespace Polycafe.DAL
 {
     public class DBConnection
     {
-        private static string connectionString = "Data Source=ADMIN\\MSSQLSERVER01;Initial Catalog=PolyCafe;Integrated Security=True";
+        private static string connectionString = "Data Source=SD20302\\ADMINCUTE;Initial Catalog=QLPolycafe;Integrated Security=True;";
 
         public static SqlConnection GetConnection()
         {

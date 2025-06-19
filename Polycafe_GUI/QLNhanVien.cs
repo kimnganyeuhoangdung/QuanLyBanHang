@@ -62,8 +62,14 @@ namespace Polycafe_GUI
             dgvEmployee.Columns["FullName"].HeaderText = "Họ tên";
             dgvEmployee.Columns["Email"].HeaderText = "Email";
             dgvEmployee.Columns["Password"].HeaderText = "Mật khẩu";
+
             dgvEmployee.Columns["Role"].HeaderText = "Vai trò";
+            dgvEmployee.Columns["Role"].Visible = false;
+            dgvEmployee.Columns["DisplayRole"].HeaderText = "Vai trò";
+
             dgvEmployee.Columns["Status"].HeaderText = "Trạng thái";
+            dgvEmployee.Columns["Status"].Visible = false;
+            dgvEmployee.Columns["DisplayStatus"].HeaderText = "Trạng thái";
         }
 
         private void SetupComboBoxRole()
@@ -129,6 +135,10 @@ namespace Polycafe_GUI
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
             dgvEmployee.ClearSelection();
+
+            // ✅ Cho phép nhập lại Email và Password khi thêm mới
+            txtEmail.Enabled = true;
+            txtPassword.Enabled = true;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -141,6 +151,10 @@ namespace Polycafe_GUI
                 MessageBox.Show("Thêm nhân viên thành công!", "Thông báo");
                 LoadEmployeeData();
                 ClearForm();
+
+                // Khóa Email và Mật khẩu sau khi thêm thành công
+                txtEmail.Enabled = false;
+                txtPassword.Enabled = false;
             }
             else
             {
@@ -150,11 +164,13 @@ namespace Polycafe_GUI
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            txtEmployeeId.ReadOnly = true; // Cho phép sửa mã nhân viên
             if (selectedEmployeeId == null)
             {
                 MessageBox.Show("Vui lòng chọn nhân viên cần cập nhật.");
                 return;
             }
+            
 
             EmployeeDTO updated = GetEmployeeDataFromForm();
             updated.EmployeeId = selectedEmployeeId;
@@ -179,6 +195,14 @@ namespace Polycafe_GUI
                 MessageBox.Show("Vui lòng chọn nhân viên cần xóa.");
                 return;
             }
+
+            // --- New Restriction Logic ---
+            if (employeeBLL.IsEmployeeLinkedToSalesOrders(selectedEmployeeId))
+            {
+                MessageBox.Show("Không thể xóa nhân viên này vì đã có phiếu bán hàng liên quan.", "Lỗi xóa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Stop the deletion process
+            }
+            // --- End New Restriction Logic ---
 
             DialogResult confirm = MessageBox.Show("Bạn có chắc muốn xóa nhân viên này?", "Xác nhận", MessageBoxButtons.YesNo);
 
@@ -241,11 +265,31 @@ namespace Polycafe_GUI
 
             txtEmployeeId.ReadOnly = true;
 
+            // ✅ Khi chọn từ danh sách thì không cho sửa Email và Mật khẩu
+            txtEmail.Enabled = false;
+            txtPassword.Enabled = false;
+
             if (_vaiTro == "1")
             {
                 btnUpdate.Enabled = true;
                 btnDelete.Enabled = true;
             }
+        }
+        // Inside your EmployeeBLL or a new SalesOrderBLL
+        private bool IsEmployeeLinkedToSalesOrders(string employeeId)
+        {
+            // This method would query your database (or in-memory data if it's a small app)
+            // to see if any sales orders have this employeeId.
+            // Example: SELECT COUNT(*) FROM PhieuBanHang WHERE EmployeeId = @employeeId
+            // If count > 0, return true; otherwise, false.
+
+            // For demonstration, let's assume this returns true if employeeId is "NV001"
+            // You'll replace this with actual database/data source logic.
+            if (employeeId == "") // Replace with actual logic to check sales orders
+            {
+                return true;
+            }
+            return false;
         }
 
         private void dgvEmployee_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -290,6 +334,11 @@ namespace Polycafe_GUI
         private void txtPassword_TextChanged(object sender, EventArgs e)
         {
             txtPassword.PasswordChar = '*'; // Hiển thị mật khẩu dưới dạng dấu *
+        }
+
+        private void groupBox1_Enter_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

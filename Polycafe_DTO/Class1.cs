@@ -119,6 +119,14 @@ namespace Polycafe_DTO
         public DateTime CreatedDate { get; set; } // Ngày tạo (NgayTao)
         public bool Status { get; set; } // Trạng thái (TrangThai) - 0: Chờ xác nhận, 1: Đã thanh toán
 
+        public string DisplayStatus
+        {
+            get
+            {
+                return Status ? "Đã thanh toán" : "Chờ xác nhận";
+            }
+        }
+
         // Calculated fields (không có trong CSDL trực tiếp)
         public int TotalQuantity { get; set; } // Tổng số lượng sản phẩm trong phiếu
         public decimal TotalAmount { get; set; } // Tổng tiền của phiếu
@@ -136,6 +144,13 @@ namespace Polycafe_DTO
         public string MaThe { get; set; } // Đã thay đổi từ int sang string để phù hợp với CHAR(6) trong DB
         public string ChuSoHuu { get; set; }
         public bool TrangThai { get; set; } // Đã thay đổi từ string sang bool để phù hợp với BIT trong DB
+        public string Status
+        {
+            get
+            {
+                return TrangThai ? "Hoạt động" : "Không hoạt động";
+            }
+        }
 
     }
     public class EmployeeDTO
@@ -148,6 +163,20 @@ namespace Polycafe_DTO
         public bool Status { get; set; } // Trạng thái: True (1) = Hoạt động, False (0) = Không hoạt động
 
         // Constructor mặc định
+        public string DisplayRole
+        {
+            get
+            {
+                return Role ? "Quản lý" : "Nhân viên";
+            }
+        }
+        public string DisplayStatus
+        {
+            get
+            {
+                return Status ? "Hoạt động" : "Đã nghỉ việc";
+            }
+        }
         public EmployeeDTO() { }
 
         // Constructor với đầy đủ các thuộc tính
@@ -176,4 +205,14 @@ namespace Polycafe_DTO
         }
 
     }
+
+    public class ThongKeNhanVienDTO
+    {
+        public int Nam { get; set; }
+        public int Ky { get; set; } // Tháng
+        public string MaNhanVien { get; set; }
+        public string HoTen { get; set; }
+        public decimal TongDoanhThu { get; set; }
+    }
+
 }

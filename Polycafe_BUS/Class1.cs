@@ -71,6 +71,12 @@ namespace Polycafe_BUS
             }
             return dt;
         }
+        public bool CheckTenLoaiExists(string tenLoai)
+        {
+            return dal.GetAll().AsEnumerable()
+                      .Any(row => row.Field<string>("TenLoai").Equals(tenLoai, StringComparison.OrdinalIgnoreCase));
+        }
+
         public bool GetVaiTroByEmail(string email)
         {
             return dal.GetVaiTroByEmail(email);
@@ -140,12 +146,12 @@ namespace Polycafe_BUS
             return dal.GetTKSP(MaSP, startDate, endDate);
         }
 
-        public List<SanPham_DTO> LoadmaSP()
+        public List<qlLSP> LoadmaSP()
         {
             return dal.LoadMaSP();
         }
 
-        public DataTable LayThongTinThongKe(string type, DateTime? tuNgay = null, DateTime? denNgay = null)
+        public DataTable LayThongTinThongKe(string type, DateTime tuNgay, DateTime denNgay)
         {
             string dalType = "";
             switch (type)
@@ -195,8 +201,17 @@ namespace Polycafe_BUS
         {
             return dal.GetAllSanPham();
         }
-        public bool GetVaiTroByEmail(string email)
+        public bool IsProductLinkedToSalesDetail(string maSanPham)
         {
+            return dal.IsProductInChiTietPhieu(maSanPham);
+        }
+        public bool CheckTenSanPhamExists(string tenLoai)
+        {
+            return dal.GetAllSanPham().AsEnumerable()
+                          .Any(row => row.Field<string>("TenSanPham").Equals(tenLoai, StringComparison.OrdinalIgnoreCase));
+            }
+            public bool GetVaiTroByEmail(string email)
+            {
             return dal.GetVaiTroByEmail(email);
         }
 
@@ -467,6 +482,11 @@ namespace Polycafe_BUS
         {
             theLuuDongDAL.AddTheLuuDong(theLuuDong);
         }
+        public bool IsCardUsedInSalesOrder(string maThe)
+        {
+            // Call the DAL method to check if the card is linked
+            return theLuuDongDAL.CheckCardUsageInSalesOrder(maThe);
+        }
         public bool GetVaiTroByEmail(string email)
         {
             return theLuuDongDAL.GetVaiTroByEmail(email);
@@ -497,6 +517,11 @@ namespace Polycafe_BUS
     public class EmployeeBLL
     {
         private EmployeeDAL employeeDAL;
+        public bool IsEmployeeLinkedToSalesOrders(string employeeId)
+        {
+            // Gọi xuống DAL để kiểm tra nhân viên có trong phiếu bán hàng không
+            return employeeDAL.CheckIfEmployeeInSalesOrder(employeeId);
+        }
 
         public EmployeeBLL()
         {
@@ -651,4 +676,46 @@ namespace Polycafe_BUS
             return userData.GetUser(email);
         }
     }
+
+
+    public class nhanvienBLL
+    {
+        private nhanvienDAL nhanVienDAL;
+
+        public nhanvienBLL(string connectionString)
+        {
+            nhanVienDAL = new nhanvienDAL(connectionString);
+        }
+
+        public DataTable LayDanhSachNhanVienChoComboBox()
+        {
+            DataTable dtNhanVien = nhanVienDAL.LayTatCaNhanVien();
+            // Có thể thêm logic nghiệp vụ tại đây nếu cần (ví dụ: lọc thêm, sắp xếp...)
+            return dtNhanVien;
+        }
+
+    }
+
+    public class ThongKeBLL
+    {
+        private ThongKeDAL thongKeDAL;
+
+        public ThongKeBLL(string connectionString)
+        {
+            thongKeDAL = new ThongKeDAL(connectionString);
+        }
+
+        public List<ThongKeNhanVienDTO> GetDoanhThuTheoThang(string maNhanVien, DateTime tuNgay, DateTime denNgay)
+        {
+            // Có thể thêm logic kiểm tra hợp lệ của tham số tại đây
+            if (tuNgay > denNgay)
+            {
+                // Hoặc throw exception tùy theo cách bạn muốn xử lý lỗi
+                return new List<ThongKeNhanVienDTO>();
+            }
+
+            return thongKeDAL.LayThongKeDoanhThuTheoThang(maNhanVien, tuNgay, denNgay);
+        }
+    }
+
 }

@@ -7,11 +7,12 @@ using Polycafe_DTO;
 using System.Linq;
 using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using DocumentFormat.OpenXml.Math;
+using System.Text;
 namespace Polycafe_DAL
 {
     public class DBUtil
     {
-        private static string connectionString = "Data Source=SD20302\\ADMINCUTE;Initial Catalog=QLPolycafe;Integrated Security=True;";
+        private static string connectionString = "Data Source=.;Initial Catalog=QLPolycafe;Integrated Security=True;";
 
         public static SqlCommand GetCommand(string sql, List<object> args, CommandType cmdType)
         {
@@ -26,6 +27,7 @@ namespace Polycafe_DAL
             }
             return cmd;
         }
+        
 
         public static void Update(string sql, List<object> args, CommandType cmdType)
         {
@@ -93,7 +95,7 @@ namespace Polycafe_DAL
 
     public class LoginDAL
     {
-        private static string connectionString = "Data Source=SD20302\\ADMINCUTE;Initial Catalog=QLPolycafe;Integrated Security=True;";
+        private static string connectionString = "Data Source=.;Initial Catalog=QLPolycafe;Integrated Security=True;";
 
         public string GetMatKhau(string username)
         {
@@ -144,10 +146,10 @@ namespace Polycafe_DAL
     public class NhanVienDAL
     {
         private string connectionString;
-
+        
         public NhanVienDAL(string connectionString)
         {
-            this.connectionString = connectionString;
+            this.connectionString = "Data Source=.;Initial Catalog=QLPolycafe;Integrated Security=True;";
         }
 
         public bool CheckCredentials(string email, string password)
@@ -221,7 +223,7 @@ namespace Polycafe_DAL
     public class qlLSP_DAL
     {
 
-        private string connString = "Data Source=SD20302\\ADMINCUTE;Initial Catalog=QLPolycafe;Integrated Security=True;";
+        private string connString = "Data Source=.;Initial Catalog=QLPolycafe;Integrated Security=True;";
 
         public DataTable GetAll()
         {
@@ -411,7 +413,7 @@ namespace Polycafe_DAL
 
     public class SanPhamDAL
     {
-        private static string connectionString = "Data Source=SD20302\\ADMINCUTE;Initial Catalog=QLPolycafe;Integrated Security=True;";
+        private static string connectionString = "Data Source=.;Initial Catalog=QLPolycafe;Integrated Security=True;";
         public DataTable GetAllSanPham()
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -423,6 +425,18 @@ namespace Polycafe_DAL
                 adapter.Fill(dt);
                 return dt;
             }
+        }
+        public bool IsProductInChiTietPhieu(string maSanPham)
+        {
+            string query = "SELECT COUNT(*) FROM ChiTietPhieu WHERE MaSanPham = @MaSanPham";
+            SqlParameter[] parameters = {
+        new SqlParameter("@MaSanPham", maSanPham)
+    };
+
+            object result = DBConnections.ExecuteScalar(query, parameters);
+            int count = Convert.ToInt32(result);
+
+            return count > 0;
         }
         public bool GetVaiTroByEmail(string email)
         {
@@ -556,7 +570,22 @@ namespace Polycafe_DAL
 
         static DBConnection()
         {
-            ConnectionString = "Data Source=SD20302\\ADMINCUTE;Initial Catalog=QLPolycafe;Integrated Security=True;";
+            ConnectionString = "Data Source=.;Initial Catalog=QLPolycafe;Integrated Security=True;";
+        }
+        public static object ExecuteScalar(string query, SqlParameter[] parameters = null)
+        {
+            object result;
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                if (parameters != null)
+                {
+                    cmd.Parameters.AddRange(parameters);
+                }
+                result = cmd.ExecuteScalar();
+            }
+            return result;
         }
     }
 
@@ -588,6 +617,7 @@ namespace Polycafe_DAL
             }
             return cards;
         }
+        
 
         // Lấy tất cả thông tin nhân viên cho ComboBox
         public List<EmployeeDto> GetAllEmployees()
@@ -1064,7 +1094,7 @@ namespace Polycafe_DAL
     }
     public class QLTheLuuDongDAL
     {
-        private string connectionString = "Data Source=SD20302\\ADMINCUTE;Initial Catalog=QLPolycafe;Integrated Security=True;";
+        private string connectionString = "Data Source=.;Initial Catalog=QLPolycafe;Integrated Security=True;";
 
         // Phương thức trợ giúp để tạo ID tuần tự tiếp theo (ví dụ: "THE001", "SP001", "PBH001")
         private string GenerateNextId(string prefix, string tableName, string idColumnName, SqlConnection connection, SqlTransaction transaction)
@@ -1094,6 +1124,24 @@ namespace Polycafe_DAL
                 }
             }
         }
+        public bool CheckCardUsageInSalesOrder(string maThe)
+        {
+            // Giả định bảng phiếu bán hàng của bạn có tên là 'PhieuBanHang' và cột khóa ngoại là 'MaThe'
+            string query = "SELECT COUNT(*) FROM PhieuBanHang WHERE MaThe = @MaThe";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@MaThe", maThe);
+                    connection.Open();
+                    int count = (int)command.ExecuteScalar(); // Thực thi truy vấn và trả về giá trị đầu tiên của hàng đầu tiên
+                    return count > 0; // Trả về true nếu count > 0 (nghĩa là thẻ được sử dụng)
+                }
+            }
+        }
+        // ********************************************
+    
         public bool GetVaiTroByEmail(string email)
         {
             string query = "SELECT VaiTro FROM NhanVien WHERE Email = @Email";
@@ -1270,7 +1318,7 @@ namespace Polycafe_DAL
     }
     public class ThongkeNVDAL
     {
-        private static string connectionString = "Data Source=SD20302\\ADMINCUTE;Initial Catalog=QLPolycafe;Integrated Security=True;";
+        private static string connectionString = "Data Source=.;Initial Catalog=QLPolycafe;Integrated Security=True;";
 
         public DataTable GetNV()
         {
@@ -1411,21 +1459,21 @@ namespace Polycafe_DAL
             return maNV;
         }
 
-        public List<SanPham_DTO> LoadMaSP()
+        public List<qlLSP> LoadMaSP()
         {
-            List<SanPham_DTO> list = new List<SanPham_DTO>();
+            List<qlLSP> list = new List<qlLSP>();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string query = "SELECT MaSanPham, TenSanPham FROM SanPham";
+                string query = "SELECT MaLoai, TenLoai FROM LoaiSanPham";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    list.Add(new SanPham_DTO
+                    list.Add(new qlLSP
                     {
-                        MaSP = reader["MaSanPham"].ToString(),
-                        TenSP = reader["TenSanPham"].ToString()
+                        MaLoai = reader["MaLoai"].ToString(),
+                        TenLoai = reader["TenLoai"].ToString()
                     });
                 }
                 reader.Close();
@@ -1499,7 +1547,7 @@ namespace Polycafe_DAL
             return dt;
         }
 
-        public DataTable GetStatisticalData(string type, DateTime? tuNgay = null, DateTime? denNgay = null)
+        public DataTable GetStatisticalData(string type, DateTime tuNgay, DateTime denNgay)
         {
             DataTable dt = new DataTable();
             string query = "";
@@ -1508,15 +1556,15 @@ namespace Polycafe_DAL
             {
                 case "monthly":
                     query = @"
-        SELECT pbh.MaNhanVien,
-               DATEPART(YEAR, pbh.NgayTao) AS Nam,
-               DATEPART(MONTH, pbh.NgayTao) AS Ky,
-               SUM(ctpbh.SoLuong * ctpbh.DonGia) AS TongDoanhThu
-        FROM PhieuBanHang AS pbh
-        JOIN ChiTietPhieu AS ctpbh ON pbh.MaPhieu = ctpbh.MaPhieu
-        WHERE pbh.TrangThai = 1
-        GROUP BY pbh.MaNhanVien, DATEPART(YEAR, pbh.NgayTao), DATEPART(MONTH, pbh.NgayTao)
-        ORDER BY pbh.MaNhanVien, Nam, Ky;";
+            SELECT pbh.MaNhanVien,
+                DATEPART(YEAR, pbh.NgayTao) AS Nam,
+                DATEPART(MONTH, pbh.NgayTao) AS Ky,
+                SUM(ctpbh.SoLuong * ctpbh.DonGia) AS TongDoanhThu
+            FROM PhieuBanHang AS pbh
+            JOIN ChiTietPhieu AS ctpbh ON pbh.MaPhieu = ctpbh.MaPhieu
+            WHERE pbh.TrangThai = 1
+            GROUP BY pbh.MaNhanVien, DATEPART(YEAR, pbh.NgayTao), DATEPART(MONTH, pbh.NgayTao)
+            ORDER BY pbh.MaNhanVien, Nam, Ky;";
                     break;
 
                 case "weekly":
@@ -1524,37 +1572,38 @@ namespace Polycafe_DAL
                         throw new ArgumentException("TuNgay và DenNgay là bắt buộc cho thống kê tuần.");
 
                     query = @"
-        SELECT 
-            pbh.MaNhanVien,
-            DATEPART(YEAR, pbh.NgayTao) AS Nam,
-            DATEPART(ISO_WEEK, pbh.NgayTao) AS Ky,
-            SUM(ctpbh.SoLuong * ctpbh.DonGia) AS TongDoanhThu
-        FROM PhieuBanHang AS pbh
-        JOIN ChiTietPhieu AS ctpbh ON pbh.MaPhieu = ctpbh.MaPhieu
-        WHERE 
-            pbh.TrangThai = 1
-            AND pbh.NgayTao BETWEEN @TuNgay AND @DenNgay
-        GROUP BY 
-            pbh.MaNhanVien, 
-            DATEPART(YEAR, pbh.NgayTao), 
-            DATEPART(ISO_WEEK, pbh.NgayTao)
-        ORDER BY 
-            pbh.MaNhanVien, 
-            DATEPART(YEAR, pbh.NgayTao), 
-            DATEPART(ISO_WEEK, pbh.NgayTao);";
+            SELECT 
+                pbh.MaNhanVien,
+                DATEPART(YEAR, pbh.NgayTao) AS Nam,
+                DATEPART(ISO_WEEK, pbh.NgayTao) AS Ky,
+                SUM(ctpbh.SoLuong * ctpbh.DonGia) AS TongDoanhThu
+            FROM PhieuBanHang AS pbh
+            JOIN ChiTietPhieu AS ctpbh ON pbh.MaPhieu = ctpbh.MaPhieu
+            WHERE 
+                pbh.TrangThai = 1
+                AND pbh.NgayTao BETWEEN @TuNgay AND @DenNgay
+            GROUP BY 
+                pbh.MaNhanVien, 
+                DATEPART(YEAR, pbh.NgayTao), 
+                DATEPART(ISO_WEEK, pbh.NgayTao)
+            ORDER BY 
+                pbh.MaNhanVien, 
+                DATEPART(YEAR, pbh.NgayTao), 
+                DATEPART(ISO_WEEK, pbh.NgayTao);";
                     break;
 
                 case "quarterly":
                     query = @"
-        SELECT pbh.MaNhanVien,
-               DATEPART(YEAR, pbh.NgayTao) AS Nam,
-               DATEPART(QUARTER, pbh.NgayTao) AS Ky,
-               SUM(ctpbh.SoLuong * ctpbh.DonGia) AS TongDoanhThu
-        FROM PhieuBanHang AS pbh
-        JOIN ChiTietPhieu AS ctpbh ON pbh.MaPhieu = ctpbh.MaPhieu
-        WHERE pbh.TrangThai = 1
-        GROUP BY pbh.MaNhanVien, DATEPART(YEAR, pbh.NgayTao), DATEPART(QUARTER, pbh.NgayTao)
-        ORDER BY pbh.MaNhanVien, Nam, Ky;";
+            SELECT pbh.MaNhanVien,
+                DATEPART(YEAR, pbh.NgayTao) AS Nam,
+                DATEPART(QUARTER, pbh.NgayTao) AS Ky,
+                SUM(ctpbh.SoLuong * ctpbh.DonGia) AS TongDoanhThu
+            FROM PhieuBanHang AS pbh
+            JOIN ChiTietPhieu AS ctpbh ON pbh.MaPhieu = ctpbh.MaPhieu
+            WHERE pbh.TrangThai = 1
+            AND pbh.NgayTao BETWEEN @TuNgay AND @DenNgay
+            GROUP BY pbh.MaNhanVien, DATEPART(YEAR, pbh.NgayTao), DATEPART(QUARTER, pbh.NgayTao)
+            ORDER BY pbh.MaNhanVien, Nam, Ky;";
                     break;
 
                 default:
@@ -1572,8 +1621,17 @@ namespace Polycafe_DAL
                         if (tuNgay == null || denNgay == null)
                             throw new ArgumentException("TuNgay và DenNgay là bắt buộc cho thống kê tuần.");
 
-                        cmd.Parameters.AddWithValue("@TuNgay", tuNgay.Value.Date);
-                        cmd.Parameters.AddWithValue("@DenNgay", denNgay.Value.Date);
+                        cmd.Parameters.AddWithValue("@TuNgay", tuNgay.Date);
+                        cmd.Parameters.AddWithValue("@DenNgay", denNgay.Date);
+                    }
+
+                    if (type.ToLower() == "quarterly")
+                    {
+                        if (tuNgay == null || denNgay == null)
+                            throw new ArgumentException("TuNgay và DenNgay là bắt buộc cho thống kê.");
+
+                        cmd.Parameters.AddWithValue("@TuNgay", tuNgay.Date);
+                        cmd.Parameters.AddWithValue("@DenNgay", denNgay.Date);
                     }
 
                     conn.Open();
@@ -1590,7 +1648,6 @@ namespace Polycafe_DAL
 
             return dt;
         }
-
         public DataTable LayTop5SanPhamBanChay(DateTime tuNgay, DateTime denNgay)
         {
             DataTable dt = new DataTable();
@@ -1656,7 +1713,7 @@ namespace Polycafe_DAL
     public class DBConnections
     {
         // Chuỗi kết nối đến cơ sở dữ liệu PolyCafe
-        private static string connectionString = "Data Source=SD20302\\ADMINCUTE;Initial Catalog=QLPolycafe;Integrated Security=True;";
+        private static string connectionString = "Data Source=.;Initial Catalog=QLPolycafe;Integrated Security=True;";
 
         // Phương thức lấy SqlConnection
         public static SqlConnection GetConnection()
@@ -1679,6 +1736,21 @@ namespace Polycafe_DAL
                     return command.ExecuteNonQuery();
                 }
             }
+        }
+        public static object ExecuteScalar(string query, SqlParameter[] parameters = null)
+        {
+            object result;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                if (parameters != null)
+                {
+                    cmd.Parameters.AddRange(parameters);
+                }
+                result = cmd.ExecuteScalar();
+            }
+            return result;
         }
 
         // Phương thức thực thi câu lệnh SQL trả về dữ liệu (SELECT)
@@ -1703,7 +1775,7 @@ namespace Polycafe_DAL
     }
     public class EmployeeDAL
     {
-        private static string connectionString = "Data Source=SD20302\\ADMINCUTE;Initial Catalog=QLPolycafe;Integrated Security=True;";
+        private static string connectionString = "Data Source=.;Initial Catalog=QLPolycafe;Integrated Security=True;";
         // Lấy tất cả nhân viên
         public List<EmployeeDTO> GetAllEmployees()
         {
@@ -1727,6 +1799,21 @@ namespace Polycafe_DAL
             }
             return employees;
         }
+        public bool CheckIfEmployeeInSalesOrder(string employeeId)
+        {
+            string query = "SELECT COUNT(*) FROM PhieuBanHang WHERE MaNhanVien = @MaNhanVien";
+            SqlParameter[] parameters = {
+        new SqlParameter("@MaNhanVien", employeeId)
+    };
+
+            object result = DBConnections.ExecuteScalar(query, parameters); // ✔️ Dùng ExecuteScalar
+            int count = Convert.ToInt32(result);
+
+            return count > 0;
+        }
+
+
+
         public bool GetVaiTroByEmail(string email)
         {
             string query = "SELECT VaiTro FROM NhanVien WHERE Email = @Email";
@@ -1877,7 +1964,7 @@ namespace Polycafe_DAL
     }
     public class HoSo_DAL
     {
-        private string connString = "Data Source=SD20302\\ADMINCUTE;Initial Catalog=QLPolycafe;Integrated Security=True;";
+        private string connString = "Data Source=.;Initial Catalog=QLPolycafe;Integrated Security=True;";
         public DataTable GetUser(string email)
         {
             DataTable userInfo = new DataTable();
@@ -1898,4 +1985,121 @@ namespace Polycafe_DAL
 
     }
 
+    public class DataAccess
+    {
+        private string connectionString = "Data Source=.;Initial Catalog=QLPolycafe;Integrated Security=True;";
+
+        public DataAccess(string connectionString = null)
+        {
+            // Nếu không truyền chuỗi kết nối, sử dụng chuỗi mặc định
+            if (!string.IsNullOrEmpty(connectionString))
+            {
+                this.connectionString = connectionString;
+            }
+        }
+
+        public DataTable ExecuteQuery(string query, SqlParameter[] parameters = null)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                if (parameters != null)
+                {
+                    command.Parameters.AddRange(parameters);
+                }
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                connection.Open();
+                adapter.Fill(dt);
+            }
+            return dt;
+        }
+
+    }
+
+    public class nhanvienDAL
+    {
+        private DataAccess dataAccess;
+
+        public nhanvienDAL(string connectionString)
+        {
+            dataAccess = new DataAccess(connectionString);
+        }
+
+        public DataTable LayTatCaNhanVien()
+        {
+            string query = "SELECT MaNhanVien, HoTen FROM NhanVien WHERE TrangThai = 1 ORDER BY MaNhanVien";
+            return dataAccess.ExecuteQuery(query);
+        }
+    }
+
+    public class ThongKeDAL
+    {
+        private DataAccess dataAccess;
+
+        public ThongKeDAL(string connectionString)
+        {
+            dataAccess = new DataAccess(connectionString);
+        }
+
+        public List<ThongKeNhanVienDTO> LayThongKeDoanhThuTheoThang(string maNhanVien, DateTime tuNgay, DateTime denNgay)
+        {
+            StringBuilder query = new StringBuilder();
+            query.Append(@"
+                SELECT
+                    YEAR(PBH.NgayTao) AS Nam,
+                    MONTH(PBH.NgayTao) AS Ky,
+                    ISNULL(NV.MaNhanVien, 'N/A') AS MaNhanVien,
+                    ISNULL(NV.HoTen, N'Không xác định') AS HoTen,
+                    SUM(CTP.SoLuong * CTP.DonGia) AS TongDoanhThu
+                FROM
+                    PhieuBanHang PBH
+                JOIN
+                    ChiTietPhieu CTP ON PBH.MaPhieu = CTP.MaPhieu
+                LEFT JOIN
+                    NhanVien NV ON PBH.MaNhanVien = NV.MaNhanVien
+                WHERE
+                    PBH.NgayTao >= @TuNgay AND PBH.NgayTao <= @DenNgay
+            ");
+
+            List<SqlParameter> parameters = new List<SqlParameter>();
+            parameters.Add(new SqlParameter("@TuNgay", tuNgay));
+            parameters.Add(new SqlParameter("@DenNgay", denNgay));
+
+            if (maNhanVien != "Tất cả")
+            {
+                query.Append(" AND PBH.MaNhanVien = @MaNhanVien");
+                parameters.Add(new SqlParameter("@MaNhanVien", maNhanVien));
+            }
+
+            query.Append(@"
+                GROUP BY
+                    YEAR(PBH.NgayTao),
+                    MONTH(PBH.NgayTao),
+                    NV.MaNhanVien,
+                    NV.HoTen
+                ORDER BY
+                    YEAR(PBH.NgayTao),
+                    MONTH(PBH.NgayTao),
+                    NV.MaNhanVien;
+            ");
+
+            DataTable dt = dataAccess.ExecuteQuery(query.ToString(), parameters.ToArray());
+
+            // Chuyển đổi DataTable sang List<ThongKeDoanhThuDTO>
+            List<ThongKeNhanVienDTO> result = new List<ThongKeNhanVienDTO>();
+            foreach (DataRow row in dt.Rows)
+            {
+                result.Add(new ThongKeNhanVienDTO
+                {
+                    Nam = row.Field<int>("Nam"),
+                    Ky = row.Field<int>("Ky"),
+                    MaNhanVien = row.Field<string>("MaNhanVien"),
+                    HoTen = row.Field<string>("HoTen"),
+                    TongDoanhThu = Convert.ToDecimal(row.Field<object>("TongDoanhThu"))
+                });
+            }
+            return result;
+        }
+    }
 }

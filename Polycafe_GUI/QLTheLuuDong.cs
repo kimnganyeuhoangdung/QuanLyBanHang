@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
+using System.Data; // Still needed for DataTable if you use it elsewhere or for DataView later
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
@@ -16,184 +16,212 @@ namespace Polycafe_GUI
     public partial class QLTheLuuDong : UserControl
     {
         private string _vaiTro;
-       
+        private string selectcard = null; // Stores the MaThe of the currently selected card
+        private List<QLTheLuuDongDTO> allCardData; // Cache for original data to help with search/reset
+
         public QLTheLuuDong(string vaiTro)
         {
             InitializeComponent();
             _vaiTro = vaiTro;
-            // Đặt DropDownStyle để ngăn người dùng nhập liệu vào ComboBox
-            // Tải dữ liệu ban đầu khi control được tạo
-            LoadData();
-            PopulateCardidComboBox();
-            ApDungPhanQuyen();
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
+            // Call initial load and setup methods
+            LoadData(); // Load data into DataGridView and populate allCardData
+            PopulateCardidComboBox(); // Populate the search combobox
+            ApDungPhanQuyen(); // Apply permissions
+            ////SetInitialButtonState(); // Set initial button states
         }
+
         private void ApDungPhanQuyen()
         {
-            if (_vaiTro == "1")
+            if(_vaiTro == "1")
             {
                 btnAdd.Enabled = true;
-                btnUpdate.Enabled = true;
                 btnRemove.Enabled = true;
+                btnUpdate.Enabled = true;
                 btnBack.Enabled = true;
-                btnfound.Enabled = true;
             }
-
             else
             {
-                btnAdd.Enabled = false;
-                btnUpdate.Enabled = false;
+                btnAdd.Enabled = true;
                 btnRemove.Enabled = false;
+                btnUpdate.Enabled = true;
                 btnBack.Enabled = true;
-                btnfound.Enabled = true;
-
             }
         }
 
+        private void SetInitialButtonState()
+        {
+            bool isAdmin = (_vaiTro == "1");
 
-        // Phương thức để tải dữ liệu vào DataGridView
+            btnAdd.Enabled = isAdmin; // Only admin can add initially
+            btnUpdate.Enabled = false; // Disabled until a row is selected
+            btnRemove.Enabled = false; // Disabled until a row is selected
+            id_card.ReadOnly = false; // MaThe should be editable for new entries
+            selectcard = null; // Clear the selected card ID
+            ClearFields(); // Clear input fields
+            LoadData(); // Ensure grid is refreshed to all data
+            PopulateCardidComboBox(); // Refresh search combobox
+        }
+
+        // Method to load data into DataGridView
         private void LoadData()
         {
             try
             {
                 var bus = new QLTheLuuDongBUS();
-                dataGridView1.DataSource = bus.GetAllTheLuuDong();
+                allCardData = bus.GetAllTheLuuDong(); // Assuming this returns List<QLTheLuuDongDTO>
+
+                if (allCardData != null && allCardData.Count > 0) // Use .Count for List<T>
+                {
+                    dataGridView1.DataSource = allCardData;
+
+                    dataGridView1.Columns["TrangThai"].Visible = false;
+                    dataGridView1.Columns["Status"].HeaderText = "TrangThai";
+                }
+                else
+                {
+                    dataGridView1.DataSource = null;
+                    // MessageBox.Show("Không có dữ liệu thẻ lưu động để hiển thị.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi khi tải dữ liệu thẻ lưu động: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                dataGridView1.DataSource = null;
             }
         }
 
-        // Phương thức mới để điền dữ liệu vào comboSP
+        // Method to populate comboBox1 with card IDs
         private void PopulateCardidComboBox()
         {
             try
             {
                 var bus = new QLTheLuuDongBUS();
-                List<string> card = bus.GetAllTheLuuDong().Select(x => x.MaThe).ToList(); // Fixed line
+                List<QLTheLuuDongDTO> allCards = bus.GetAllTheLuuDong(); // Should return List<QLTheLuuDongDTO>
+                List<string> cardIds = allCards.Select(x => x.MaThe).ToList();
 
-
-                // --- Bắt đầu phần gỡ lỗi ---
-                if (card != null && card.Any())
+                if (cardIds != null && cardIds.Any())
                 {
-                    // Đã bỏ dòng MessageBox.Show để tránh làm phiền người dùng cuối
-                    // MessageBox.Show($"Đã tải {productNames.Count} sản phẩm. Sản phẩm đầu tiên: {productNames.First()}", "Thông báo gỡ lỗi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    comboBox1.DataSource = card;
+                    comboBox1.DataSource = cardIds;
+                    comboBox1.SelectedIndex = -1; // Clear initial selection
                 }
                 else
                 {
-                    MessageBox.Show("Không tìm thấy sản phẩm nào để tải vào ComboBox hoặc có lỗi khi tải dữ liệu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    comboBox1.DataSource = null; // Đảm bảo ComboBox trống
+                    comboBox1.DataSource = null;
                 }
-                // --- Kết thúc phần gỡ lỗi ---
+                comboBox1.DropDownStyle = ComboBoxStyle.DropDownList; // Prevent manual input
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi tải danh sách sản phẩm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi khi tải danh sách Mã thẻ vào ComboBox: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void UserControl1_Load(object sender, EventArgs e)
+        private void ClearFields()
         {
-            // Sự kiện này kích hoạt khi UserControl được tải vào container của nó
-            // LoadData(); // Đã gọi trong hàm tạo, không cần gọi lại ở đây trừ khi có lý do đặc biệt
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-            // Xử lý sự kiện trống
-        }
-
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-            // Xử lý sự kiện trống
-        }
-
-        private void ngaytao_ValueChanged(object sender, EventArgs e)
-        {
-            // Xử lý sự kiện trống
+            id_card.Clear();
+            textBox1.Clear();
+            radioButton1.Checked = true; // Default to 'Active'
+            radioButton2.Checked = false;
+            comboBox1.SelectedIndex = -1; // Clear search combobox selection
+            selectcard = null; // Crucially clear the selected ID
+            id_card.ReadOnly = false; // Allow editing MaThe for new entries
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             try
             {
-                // Lấy dữ liệu từ các control trên form
-                string maThe = id_card.Text.Trim(); // MaThe là CHAR(6) trong DB, nên nó là một chuỗi
+                string maThe = id_card.Text.Trim();
                 string chuSoHuu = textBox1.Text.Trim();
-               
 
-                // Kiểm tra dữ liệu đầu vào
-                if (string.IsNullOrEmpty(maThe) || string.IsNullOrEmpty(chuSoHuu))
+                // Input validation
+                if (string.IsNullOrEmpty(maThe))
                 {
-                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Vui lòng nhập Mã thẻ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    id_card.Focus();
+                    return;
+                }
+                if (string.IsNullOrEmpty(chuSoHuu))
+                {
+                    MessageBox.Show("Vui lòng nhập Chủ sở hữu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    textBox1.Focus();
                     return;
                 }
 
-                // Tạo DTO
-                bool trangThai = radioButton1.Checked; // TrangThai là BIT trong DB, nên nó là một boolean
+                var bus = new QLTheLuuDongBUS();
+                // Check if card ID already exists (RE-ENABLED THIS CRUCIAL CHECK)
+
+                bool trangThai = radioButton1.Checked; // true if Active, false if Inactive
+
                 var theLuuDong = new QLTheLuuDongDTO
                 {
                     MaThe = maThe,
                     ChuSoHuu = chuSoHuu,
-                    TrangThai = trangThai,
-                    
+                    TrangThai = trangThai
                 };
 
-                // Gọi BUS để thêm vào DB
-                var bus = new QLTheLuuDongBUS();
                 bus.AddTheLuuDong(theLuuDong);
 
                 MessageBox.Show("Thêm thẻ lưu động thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Làm mới form nếu cần
-                // ClearForm(); // Bỏ ghi chú và thực hiện nếu cần
-                LoadData();  // Tải lại dữ liệu DataGridView
-            }
+                ClearFields(); // Clear input fields
+                LoadData(); // Ensure grid is refreshed to all data
+                PopulateCardidComboBox();
+            }// Refresh search combobox            }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi khi thêm thẻ lưu động: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            // Ensure MaThe is not editable during update, it's set from selection
+            id_card.ReadOnly = true;
+
             try
             {
-                // Lấy dữ liệu từ form
-                string maThe = id_card.Text.Trim(); // MaThe là CHAR(6) trong DB, nên nó là một chuỗi
-                string chuSoHuu = textBox1.Text.Trim();
-                bool trangThai = radioButton1.Checked; // TrangThai là BIT trong DB, nên nó là một boolean
-
-                // Xác thực đầu vào
-                if (string.IsNullOrEmpty(maThe) || string.IsNullOrEmpty(chuSoHuu))
+                // Validation: A card must be selected for update
+                if (string.IsNullOrEmpty(selectcard))
                 {
-                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin (Mã thẻ, Chủ sở hữu)!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Vui lòng chọn một thẻ để cập nhật!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // Tạo DTO
+                // Get data from form controls
+                string maTheToUpdate = id_card.Text.Trim(); // Use the ID from the textbox (which came from selection)
+                string chuSoHuu = textBox1.Text.Trim();
+                bool trangThai = radioButton1.Checked;
+
+                // Basic input validation for non-ID fields
+                if (string.IsNullOrEmpty(chuSoHuu))
+                {
+                    MessageBox.Show("Vui lòng nhập Chủ sở hữu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    textBox1.Focus();
+                    return;
+                }
+
+                // Create DTO with the ID for update
                 var theLuuDong = new QLTheLuuDongDTO
                 {
-                    MaThe = maThe,
+                    MaThe = maTheToUpdate, // <--- CRITICAL FIX: Assign the MaThe
                     ChuSoHuu = chuSoHuu,
-                    TrangThai = trangThai,
-                    // TenSanPham và SoLuong không được cập nhật trực tiếp cho bảng TheLuuDong
-                    // Nếu cần cập nhật các trường này, phương thức DAL và DTO sẽ cần phản ánh điều đó cho ChiTietPhieu
+                    TrangThai = trangThai
                 };
 
-                // Gọi BUS để cập nhật thẻ
                 var bus = new QLTheLuuDongBUS();
                 bus.UpdateTheLuuDong(theLuuDong);
 
                 MessageBox.Show("Cập nhật thẻ lưu động thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadData(); // Tải lại dữ liệu DataGridView
-            }
+                ClearFields(); // Clear input fields
+                LoadData(); // Ensure grid is refreshed to all data
+                PopulateCardidComboBox();
+            }// Refresh search combobox            }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi khi cập nhật thẻ lưu động: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -201,70 +229,45 @@ namespace Polycafe_GUI
         {
             try
             {
-                // Lấy mã thẻ từ control
-                string maThe = id_card.Text.Trim(); // MaThe là CHAR(6) trong DB, nên nó là một chuỗi
+                string maThe = id_card.Text.Trim();
 
-                if (string.IsNullOrEmpty(maThe))
+                if (string.IsNullOrEmpty(maThe) || string.IsNullOrEmpty(selectcard))
                 {
                     MessageBox.Show("Vui lòng chọn một thẻ để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // Xác nhận xóa
-                var result = MessageBox.Show("Bạn có chắc muốn xóa thẻ lưu động này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var bus = new QLTheLuuDongBUS();
+
+                // Foreign Key Constraint Check
+                if (bus.IsCardUsedInSalesOrder(maThe)) // Assuming this method exists in QLTheLuuDongBUS
+                {
+                    MessageBox.Show("Thẻ này hiện đang được sử dụng trong các phiếu bán hàng và không thể xóa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var result = MessageBox.Show($"Bạn có chắc muốn xóa thẻ lưu động có mã '{maThe}' không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    // Gọi BUS để xóa
-                    var bus = new QLTheLuuDongBUS();
                     bus.RemoveTheLuuDong(maThe);
                     MessageBox.Show("Xóa thẻ lưu động thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadData();  // Tải lại dữ liệu DataGridView
+                    ClearFields(); // Clear input fields
+                    LoadData(); // Ensure grid is refreshed to all data
+                    PopulateCardidComboBox(); // Refresh search combobox
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi khi xóa thẻ lưu động: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            ResetForm();
-        }
-        private void ResetForm()
-        {
-            textBox1.Clear();
-            id_card.Clear();
-
-            radioButton1.Checked = true; // Đặt về "Hoạt động"
-            radioButton2.Checked = false;
-
-            comboBox1.SelectedIndex = -1; // Xóa nội dung tìm kiếm
-
-            // Xóa hoặc chú thích các dòng không tồn tại trong context
-            // selectedEmployeeId = null; // Không có dòng nào được chọn
-            // txtEmployeeId.ReadOnly = false; // Cho phép nhập Mã NV khi thêm mới
-
-            btnAdd.Enabled = true; // Cho phép nút Thêm
-            btnUpdate.Enabled = false; // Vô hiệu hóa nút Cập nhật
-            btnRemove.Enabled = false; 
-            // Vô hiệu hóa nút Xóa (chú thích nếu không tồn tại)
-            LoadData();
-        }
-
-        private void comboSP_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Xử lý sự kiện trống
-        }
-
-        private void btnSP_Click(object sender, EventArgs e)
-        {
-            // Xử lý sự kiện trống
-        }
-
-        private void btnXoaSP_Click(object sender, EventArgs e)
-        {
-            // Xử lý sự kiện trống
+            // Reset to initial state for adding new entries
+            ClearFields(); // Clear input fields
+            LoadData(); // Ensure grid is refreshed to all data
+            PopulateCardidComboBox(); // Refresh search combobox
         }
 
         private void btnfound_Click(object sender, EventArgs e)
@@ -275,25 +278,31 @@ namespace Polycafe_GUI
 
                 if (string.IsNullOrEmpty(searchTerm))
                 {
-                    MessageBox.Show("Vui lòng nhập Mã thẻ để tìm kiếm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    LoadData();
-                    PopulateCardidComboBox();
+                    MessageBox.Show("Vui lòng chọn Mã thẻ để tìm kiếm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    LoadData(); // If search term is empty, show all data
                     return;
                 }
 
                 var bus = new QLTheLuuDongBUS();
+                // Assuming SearchTheLuuDongByMaThe returns List<QLTheLuuDongDTO>
                 List<QLTheLuuDongDTO> searchResults = bus.SearchTheLuuDongByMaThe(searchTerm);
 
-                if (searchResults.Count > 0)
+                if (searchResults != null && searchResults.Count > 0)
                 {
                     dataGridView1.DataSource = searchResults;
                     MessageBox.Show($"Tìm thấy {searchResults.Count} kết quả.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Clear selection and select the first found item if applicable
+                    dataGridView1.ClearSelection();
+                    dataGridView1.Rows[0].Selected = true;
+                    // Optional: Scroll to the selected row
+                    // dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.Rows[0].Index;
                 }
                 else
                 {
                     dataGridView1.DataSource = null;
                     MessageBox.Show("Không tìm thấy thẻ lưu động nào với mã thẻ này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+
             }
             catch (Exception ex)
             {
@@ -301,60 +310,50 @@ namespace Polycafe_GUI
             }
         }
 
-        private void textboxTim_TextChanged(object sender, EventArgs e)
-        {
-            // Xử lý sự kiện trống
-        }
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Xử lý sự kiện trống
-        }
-
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Kiểm tra xem có hàng nào được nhấp không và hàng đó không phải là tiêu đề cột
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
-                // Lấy giá trị MaThe từ ô tương ứng (ví dụ: cột có tên "MaThe")
-                // Đảm bảo tên cột chính xác trong DataGridView của bạn
-                string maThe = row.Cells["MaThe"].Value.ToString();
+                string maThe = row.Cells["MaThe"].Value?.ToString(); // Use null-conditional operator for safety
 
-                // Điền giá trị vào textbox id_card
+                // Populate textboxes
                 id_card.Text = maThe;
-
-                // Tùy chọn: Điền các trường khác nếu cần cho chỉnh sửa
-                textBox1.Text = row.Cells["ChuSoHuu"].Value.ToString();
+                textBox1.Text = row.Cells["ChuSoHuu"].Value?.ToString(); // Use null-conditional operator
                 bool trangThai = (bool)row.Cells["TrangThai"].Value;
                 radioButton1.Checked = trangThai;
-                // Giả sử bạn có radioButton2 cho trạng thái "Không hoạt động"
-                // if (radioButton2 != null) radioButton2.Checked = !trangThai; 
-                comboBox1.Text = row.Cells["MaThe"].Value.ToString();
+                radioButton2.Checked = !trangThai; // Assuming radioButton2 is for "Inactive"
+
+                // Set selectcard for update/delete operations
+                selectcard = maThe; // <--- CRITICAL FIX: Assign the selected card ID
+
+                // Make MaThe textbox read-only when a row is selected for update/delete
+                id_card.ReadOnly = true;
+
+                // Adjust button states for update/delete mode (for admin users)
+                if (_vaiTro == "1")
+                {
+                    btnAdd.Enabled = false;    // Disable Add
+                    btnUpdate.Enabled = true;  // Enable Update
+                    btnRemove.Enabled = true;  // Enable Remove
+                }
             }
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-            // Xử lý sự kiện trống
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
+        // --- Unused/Empty Event Handlers (can be removed if truly unused) ---
+        private void UserControl1_Load(object sender, EventArgs e) { /* Already handled in constructor */ }
+        private void label7_Click(object sender, EventArgs e) { }
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e) { }
+        private void ngaytao_ValueChanged(object sender, EventArgs e) { }
+        private void comboSP_SelectedIndexChanged(object sender, EventArgs e) { }
+        private void btnSP_Click(object sender, EventArgs e) { }
+        private void btnXoaSP_Click(object sender, EventArgs e) { }
+        private void textboxTim_TextChanged(object sender, EventArgs e) { }
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) { }
+        private void groupBox1_Enter(object sender, EventArgs e) { }
+        private void label4_Click(object sender, EventArgs e) { }
+        private void radioButton1_CheckedChanged(object sender, EventArgs e) { }
+        private void radioButton2_CheckedChanged(object sender, EventArgs e) { }
     }
 }
-
-
-

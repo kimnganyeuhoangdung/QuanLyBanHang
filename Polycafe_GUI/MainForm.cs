@@ -20,98 +20,63 @@ namespace Polycafe_GUI
         public MainForm(string vaiTro, string emaildn, string tenNhanVien)
         {
             InitializeComponent();
-            SetupSideMenu();
             currentVaiTro = vaiTro; // lấy từ kết quả đăng nhập 
             this.emailDangNhap = emaildn;
             this.hoTen = tenNhanVien;
-            label2.Text =  tenNhanVien ;
+            label2.Text = tenNhanVien;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             //Hiển thị mặc định
+            PhanQuyenNguoiDung();
 
-            //DisplayUserControl(new QLNhanVien(currentVaiTro));
+             if (currentVaiTro == "0")
+            {
+                panel1.Controls.Clear();
+                Thongke_Employee tknv = new Thongke_Employee(emailDangNhap);
+                panel1.Controls.Add(tknv);
+                tknv.Dock = DockStyle.Fill;
+            }
 
         }
 
+        private void PhanQuyenNguoiDung()
+        {
+            if (currentVaiTro == "1") // Admin
+            {
+                button9.Visible = false; // hoặc button9.Enabled = false;
+            }
+            else if (currentVaiTro == "0") // User
+            {
+                button1.Visible = false; // QL Nhân viên
+                button6.Visible = false; // thống kê
+            }
+        }
 
         private void button8_Click(object sender, EventArgs e)
         {
             //Nếu button này không liên quan đến menu thì giữ nguyên.
         }
 
-        private void SetupSideMenu()
-        {
-            foreach (Control control in flowLayoutPanel1.Controls)
-            {
-                if (control is Button button)
-                {
-                    button.Click += MenuItem_Click;
-                }
-            }
-        }
 
-        private void MenuItem_Click(object sender, EventArgs e)
-        {
-            Button clickedButton = sender as Button;
-            if (clickedButton != null)
-            {
-                panel1.Controls.Clear();
-                UserControl newContentControl = null;
 
-                if (clickedButton.Text == "Nhân viên")
-                {
-                    // Truyền đúng vai trò của user hiện tại
-                    newContentControl = new QLNhanVien(currentVaiTro);
-                }
-                else if (clickedButton.Text == "Sản phẩm")
-                {
-                    newContentControl = new QuanLySanPham(currentVaiTro);
-                }
-                else if (clickedButton.Text == "Loại sản phẩm")
-                {
-                    newContentControl = new QLLoaiSanPham(currentVaiTro);
-                }
-                else if (clickedButton.Text == "Phiếu bán hàng")
-                {
-                    newContentControl = new QLPhieuBanHang();
-                }
-                else if (clickedButton.Text == "Thẻ lưu động")
-                {
-                    newContentControl = new QLTheLuuDong(currentVaiTro);
-                }
-                else if (clickedButton.Text == "Cài đặt")
-                {
-                    var caiDatControl = new CaiDat(emailDangNhap);  // ✅ Truyền đúng email
-                    newContentControl = caiDatControl;
-                }
-
-                else if (clickedButton.Text == "Thống kê")
-                {
-                    newContentControl = new ThongKe(currentVaiTro);
-                }
-
-                if (newContentControl != null)
-                {
-                    DisplayUserControl(newContentControl);
-                }
-            }
-        }
-        private void DisplayUserControl(UserControl control)
-        {
-            control.Dock = DockStyle.Fill;
-            panel1.Controls.Add(control);
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Thêm code xử lý cho button1 nếu cần
+            panel1.Controls.Clear();
+            QLNhanVien nv = new QLNhanVien(currentVaiTro);
+            nv.Dock = DockStyle.Fill;
+            panel1.Controls.Add(nv);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Thêm code xử lý cho button2 nếu cần
+            panel1.Controls.Clear();
+            QuanLySanPham sp = new QuanLySanPham(currentVaiTro);
+            sp.Dock = DockStyle.Fill;
+
+            panel1.Controls.Add(sp);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -132,36 +97,103 @@ namespace Polycafe_GUI
                 Login login = new Login();
                 login.Show(); // Hiển thị LoginForm
             }
+            else
+            {
+                this.Hide();
+                MainForm main = new MainForm(currentVaiTro, emailDangNhap, hoTen);
+                main.Show(); // Hiển thị lại MainForm nếu người dùng chọn No
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
+            panel1.Controls.Clear();
+            QLPhieuBanHang phieu = new QLPhieuBanHang();
+            phieu.Dock = DockStyle.Fill;
 
+            panel1.Controls.Add(phieu);
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
+            panel1.Controls.Clear();
+            CaiDat cd = new CaiDat(emailDangNhap);
+            panel1.Controls.Add(cd);
+            cd.Dock = DockStyle.Fill;
 
         }
 
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
-            foreach (Control control in flowLayoutPanel1.Controls)
-            {
-                if (control is Button button)
-                {
-                    button.Click += MenuItem_Click;
 
-                    if (button.Text == "Nhân viên" && currentVaiTro != "1")
-                    {
-                        button.Visible = false;
-                    }
-                    if (button.Text == "Thống kê" && currentVaiTro != "1")
-                    {
-                        button.Visible = false;
-                    }
-                }
-            }
         }
+
+
+        private void button9_Click_1(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            Thongke_Employee tknv = new Thongke_Employee(emailDangNhap);
+            panel1.Controls.Add(tknv);
+            tknv.Dock = DockStyle.Fill;
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            QLLoaiSanPham lsp = new QLLoaiSanPham(currentVaiTro);
+            panel1.Controls.Add(lsp);
+            lsp.Dock = DockStyle.Fill;
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            QLTheLuuDong the = new QLTheLuuDong(currentVaiTro);
+            panel1.Controls.Add(the);
+            the.Dock = DockStyle.Fill;
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            ThongKe tk = new ThongKe(currentVaiTro);
+            panel1.Controls.Add(tk);
+            tk.Dock = DockStyle.Fill;
+
+        }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            QLTheLuuDong the = new QLTheLuuDong(currentVaiTro);
+            panel1.Controls.Add(the);
+            the.Dock = DockStyle.Fill;
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            QLLoaiSanPham lsp = new QLLoaiSanPham(currentVaiTro);
+            panel1.Controls.Add(lsp);
+            lsp.Dock = DockStyle.Fill;
+        }
+
+        private void button6_Click_1(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            ThongKe tk = new ThongKe(currentVaiTro);
+            panel1.Controls.Add(tk);
+            tk.Dock = DockStyle.Fill;
+        }
+
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+
+        }
+
+    
     }
 }

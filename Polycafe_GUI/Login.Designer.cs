@@ -45,15 +45,15 @@ namespace Polycafe_GUI
             this.panel2 = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.btnLogin = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -68,7 +68,7 @@ namespace Polycafe_GUI
             this.pass.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pass.Multiline = true;
             this.pass.Name = "pass";
-            this.pass.Size = new System.Drawing.Size(297, 35);
+            this.pass.Size = new System.Drawing.Size(297, 34);
             this.pass.TabIndex = 3;
             this.pass.TextChanged += new System.EventHandler(this.pass_TextChanged_1);
             this.pass.MouseEnter += new System.EventHandler(this.pass_MouseEnter);
@@ -77,9 +77,9 @@ namespace Polycafe_GUI
             // show
             // 
             this.show.AutoSize = true;
-            this.show.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
+            this.show.BackColor = System.Drawing.Color.Transparent;
             this.show.ForeColor = System.Drawing.Color.White;
-            this.show.Location = new System.Drawing.Point(630, 362);
+            this.show.Location = new System.Drawing.Point(644, 354);
             this.show.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.show.Name = "show";
             this.show.Size = new System.Drawing.Size(130, 20);
@@ -96,10 +96,10 @@ namespace Polycafe_GUI
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.Color.White;
-            this.btnExit.Location = new System.Drawing.Point(897, 484);
+            this.btnExit.Location = new System.Drawing.Point(898, 484);
             this.btnExit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(18, 24);
+            this.btnExit.Size = new System.Drawing.Size(19, 25);
             this.btnExit.TabIndex = 6;
             this.btnExit.Text = "Thoát";
             this.btnExit.UseVisualStyleBackColor = false;
@@ -108,7 +108,7 @@ namespace Polycafe_GUI
             // LinkForget
             // 
             this.LinkForget.AutoSize = true;
-            this.LinkForget.Location = new System.Drawing.Point(855, 371);
+            this.LinkForget.Location = new System.Drawing.Point(835, 334);
             this.LinkForget.Name = "LinkForget";
             this.LinkForget.Size = new System.Drawing.Size(97, 16);
             this.LinkForget.TabIndex = 10;
@@ -119,9 +119,9 @@ namespace Polycafe_GUI
             // chkremember
             // 
             this.chkremember.AutoSize = true;
-            this.chkremember.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
+            this.chkremember.BackColor = System.Drawing.Color.Transparent;
             this.chkremember.ForeColor = System.Drawing.Color.White;
-            this.chkremember.Location = new System.Drawing.Point(624, 395);
+            this.chkremember.Location = new System.Drawing.Point(644, 380);
             this.chkremember.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chkremember.Name = "chkremember";
             this.chkremember.Size = new System.Drawing.Size(131, 20);
@@ -137,7 +137,7 @@ namespace Polycafe_GUI
             this.user.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.user.Multiline = true;
             this.user.Name = "user";
-            this.user.Size = new System.Drawing.Size(297, 35);
+            this.user.Size = new System.Drawing.Size(297, 34);
             this.user.TabIndex = 2;
             this.user.TextChanged += new System.EventHandler(this.user_TextChanged_1);
             this.user.MouseEnter += new System.EventHandler(this.user_MouseEnter);
@@ -146,9 +146,10 @@ namespace Polycafe_GUI
             // panel1
             // 
             this.panel1.Controls.Add(this.user);
-            this.panel1.Location = new System.Drawing.Point(644, 177);
+            this.panel1.Location = new System.Drawing.Point(644, 178);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(299, 35);
+            this.panel1.Size = new System.Drawing.Size(299, 34);
             this.panel1.TabIndex = 11;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -156,6 +157,7 @@ namespace Polycafe_GUI
             // 
             this.panel2.Controls.Add(this.pass);
             this.panel2.Location = new System.Drawing.Point(644, 278);
+            this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(300, 36);
             this.panel2.TabIndex = 12;
@@ -173,84 +175,18 @@ namespace Polycafe_GUI
             this.panel3.Controls.Add(this.show);
             this.panel3.ForeColor = System.Drawing.Color.White;
             this.panel3.Location = new System.Drawing.Point(0, -25);
+            this.panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(801, 588);
+            this.panel3.Size = new System.Drawing.Size(802, 588);
             this.panel3.TabIndex = 15;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Image = global::Polycafe_GUI.Properties.Resources.icons8_username_24__1_;
-            this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label1.Location = new System.Drawing.Point(625, 167);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(140, 28);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "    UserName ";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(62)))), ((int)(((byte)(39)))), ((int)(((byte)(35)))));
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Image = global::Polycafe_GUI.Properties.Resources.icons8_password_24__1_;
-            this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label2.Location = new System.Drawing.Point(629, 259);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(131, 28);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "     Password";
-            this.label2.Click += new System.EventHandler(this.label2_Click_1);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Transparent;
-            this.label3.Image = global::Polycafe_GUI.Properties.Resources.frosted_glass_coffee;
-            this.label3.Location = new System.Drawing.Point(87, 248);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(412, 25);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "Xin chào, Hãy đăng nhập để bắt đầu nhé!";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.BackgroundImage = global::Polycafe_GUI.Properties.Resources.poly;
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox2.Location = new System.Drawing.Point(784, 10);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(219, 93);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 13;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::Polycafe_GUI.Properties.Resources.background_coffe;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 1);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(589, 538);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 10;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
             // panel5
             // 
-            this.panel5.Location = new System.Drawing.Point(807, 471);
+            this.panel5.Location = new System.Drawing.Point(833, 472);
+            this.panel5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(192, 55);
+            this.panel5.Size = new System.Drawing.Size(157, 55);
             this.panel5.TabIndex = 17;
             this.panel5.Click += new System.EventHandler(this.panel5_Click);
             this.panel5.Paint += new System.Windows.Forms.PaintEventHandler(this.panel5_Paint);
@@ -267,7 +203,7 @@ namespace Polycafe_GUI
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.Location = new System.Drawing.Point(962, 148);
+            this.btnLogin.Location = new System.Drawing.Point(963, 148);
             this.btnLogin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(27, 22);
@@ -278,9 +214,10 @@ namespace Polycafe_GUI
             // 
             // panel4
             // 
-            this.panel4.Location = new System.Drawing.Point(807, 407);
+            this.panel4.Location = new System.Drawing.Point(833, 412);
+            this.panel4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(192, 55);
+            this.panel4.Size = new System.Drawing.Size(157, 55);
             this.panel4.TabIndex = 16;
             this.panel4.Click += new System.EventHandler(this.panel4_Click);
             this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
@@ -291,10 +228,79 @@ namespace Polycafe_GUI
             // 
             // panel6
             // 
-            this.panel6.Location = new System.Drawing.Point(958, 148);
+            this.panel6.Location = new System.Drawing.Point(957, 148);
+            this.panel6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(45, 44);
             this.panel6.TabIndex = 17;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Transparent;
+            this.label3.Image = global::Polycafe_GUI.Properties.Resources.frosted_glass_coffee;
+            this.label3.Location = new System.Drawing.Point(87, 249);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(412, 25);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "Xin chào, Hãy đăng nhập để bắt đầu nhé!";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox2.Image = global::Polycafe_GUI.Properties.Resources.poly;
+            this.pictureBox2.Location = new System.Drawing.Point(784, 10);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(219, 94);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 13;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::Polycafe_GUI.Properties.Resources.background_coffe;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(589, 538);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Image = global::Polycafe_GUI.Properties.Resources.icons8_username_24__1_;
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.Location = new System.Drawing.Point(638, 158);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(140, 28);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "    UserName ";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Image = global::Polycafe_GUI.Properties.Resources.icons8_password_24__1_;
+            this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label2.Location = new System.Drawing.Point(638, 261);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(131, 28);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "     Password";
+            this.label2.Click += new System.EventHandler(this.label2_Click_1);
             // 
             // Login
             // 
@@ -318,6 +324,7 @@ namespace Polycafe_GUI
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Login";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Login_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load_1);

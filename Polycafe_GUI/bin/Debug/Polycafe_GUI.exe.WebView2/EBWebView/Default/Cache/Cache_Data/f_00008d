@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Liên Hệ-Hỗ Trợ</title>
+    <style>
+        /* CSS Cơ bản và Reset nhẹ */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            /* Đặt lại padding body về 0 để main-container quản lý */
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            /* Sắp xếp các phần tử theo cột */
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            background-color: #575454;
+            /* Màu xanh đậm hơn cho header */
+            padding: 15px 30px;
+            /* Tăng padding để header rộng rãi hơn */
+            color: white;
+            /* Đảm bảo chữ trong header màu trắng */
+            justify-content: space-between;
+            /* Đẩy logo và nav ra hai bên */
+        }
+
+        .header .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            /* Màu vàng nổi bật cho logo */
+        }
+
+        .header .nav ul {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            left: -270px;
+        }
+
+        .header .nav li {
+            margin: 0 20px;
+            /* Tăng khoảng cách giữa các mục nav */
+        }
+
+        .header .nav a {
+            color: #f0f0f0;
+            /* Màu chữ sáng hơn cho nav links */
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+
+        .header .nav a:hover {
+            color: #ffd700;
+            /* Màu vàng khi hover */
+        }
+
+        /* Container chính bao gồm Sidebar và Content */
+        .main-container {
+            display: flex;
+            flex: 1;
+            /* Cho phép main-container mở rộng để lấp đầy không gian còn lại */
+            width: 100%;
+            /* Đảm bảo main-container chiếm toàn bộ chiều rộng */
+            max-width: 1200px;
+            /* Giới hạn chiều rộng tối đa của nội dung chính */
+            margin: 20px auto;
+            /* Căn giữa main-container và thêm khoảng cách */
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            /* Đảm bảo nội dung không tràn ra khỏi bo góc */
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            /* Điều chỉnh chiều rộng sidebar theo ý muốn */
+            background-color: #575454;
+            /* Màu nền xanh đậm cho sidebar */
+            padding: 20px 0;
+            /* Padding trên dưới, 0 trái phải */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+            /* Ngăn sidebar co lại */
+        }
+
+        .sidebar h2 {
+            font-size: 1.6em;
+            /* Màu vàng cho tiêu đề sidebar */
+            margin: 0 20px 25px 20px;
+            /* Khoảng cách và căn giữa tiêu đề */
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            /* Đường kẻ dưới mờ */
+            text-align: center;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+            overflow-y: auto;
+            /* Cho phép cuộn nếu menu dài */
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 12px 25px;
+            /* Tăng padding để mục menu lớn hơn */
+            text-decoration: none;
+            color: #f0f0f0;
+            /* Màu chữ sáng cho menu items */
+            font-size: 1.05em;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .sidebar-menu li a i {
+            /* Icon */
+            margin-right: 12px;
+            /* Khoảng cách giữa icon và chữ */
+            font-size: 1.2em;
+        }
+
+        .sidebar-menu li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            /* Nền hơi trong suốt khi hover */
+            color: #ffd700;
+            /* Màu vàng khi hover */
+        }
+
+        /* Khu vực nội dung chính (form sẽ nằm ở đây) */
+        .content-area {
+            flex: 1;
+            /* Chiếm hết không gian còn lại */
+            padding: 30px;
+            /* Khoảng cách nội dung */
+            display: flex;
+            justify-content: center;
+            /* Căn giữa form trong content-area */
+            align-items: flex-start;
+            /* Căn form lên trên */
+        }
+
+
+        /* Container chính của biểu mẫu */
+        .form-container {
+            display: flex;
+            max-width: 700px;
+            /* Giới hạn chiều rộng tối đa của form */
+            width: 100%;
+            background-color: #fff;
+            /* Loại bỏ box-shadow và border-radius ở đây vì đã áp dụng cho main-container */
+            overflow: hidden;
+            flex-direction: column;
+            /* Đảm bảo form vẫn hiển thị dạng cột nếu cần */
+        }
+
+        /* Phần bên trái (biểu mẫu) */
+        .form-left {
+            flex: 1;
+            /* Chiếm toàn bộ không gian trong form-container */
+            padding: 0;
+            /* Đã có padding ở content-area */
+        }
+
+        .form-left h2 {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 25px;
+            line-height: 1.4;
+            text-align: center;
+            /* Căn giữa tiêu đề form */
+        }
+
+        /* Các nhóm trường input */
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            /* Tăng khoảng cách dưới label */
+            font-size: 0.95em;
+            color: #555;
+            width: 100%;
+            font-weight: bold;
+            /* In đậm label */
+        }
+
+        /* Các trường input */
+        .form-group input[type="text"],
+        .form-group input[type="tel"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            /* Tăng padding input */
+            border: 1px solid #ccc;
+            /* Màu border nhạt hơn */
+            border-radius: 6px;
+            /* Bo góc nhiều hơn */
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="tel"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group textarea:focus {
+            border-color: #ffd700;
+            /* Màu vàng khi focus */
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+            /* Hiệu ứng shadow khi focus */
+            outline: none;
+            /* Bỏ outline mặc định của trình duyệt */
+        }
+
+        /* Tạo các cột cho input cụ thể trong một nhóm */
+        .form-group>div {
+            flex: 1 1 calc(50% - 10px);
+            min-width: 250px;
+        }
+
+        /* Đảm bảo textarea chiếm toàn bộ chiều rộng hàng */
+        .form-group textarea {
+            flex-basis: 100%;
+            min-width: unset;
+            resize: vertical;
+            /* Cho phép thay đổi kích thước theo chiều dọc */
+        }
+
+        /* Nút gửi */
+        button[type="submit"] {
+            background-color: #ffd700;
+            color: #0d1e4d;
+            padding: 14px 40px;
+            /* Tăng padding nút */
+            border: none;
+            border-radius: 6px;
+            /* Bo góc nhiều hơn */
+            cursor: pointer;
+            font-size: 1.15em;
+            /* Tăng kích thước font nút */
+            font-weight: bold;
+            margin-top: 25px;
+            /* Tăng khoảng cách trên nút */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: block;
+            /* Đảm bảo nút chiếm toàn bộ chiều rộng và căn giữa */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #e0bb00;
+            transform: translateY(-2px);
+            /* Hiệu ứng nhấc nhẹ khi hover */
+        }
+
+        /* Trạng thái gửi form */
+        #formStatus {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #575454;
+            /* Màu nền xanh đậm cho footer */
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            font-size: 0.95em;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+            margin-top: auto;
+            /* Đẩy footer xuống dưới cùng */
+        }
+
+        footer p {
+            margin: 0;
+            margin-bottom: 10px;
+        }
+
+        .footer-icons {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            /* Căn giữa các icon */
+            gap: 20px;
+            /* Khoảng cách giữa các icon */
+        }
+
+        .footer-icons a {
+            color: white;
+            text-decoration: none;
+            font-size: 22px;
+            /* Kích thước icon lớn hơn */
+            transition: color 0.3s ease;
+        }
+
+        .footer-icons a:hover {
+            color: #ffd700;
+            /* Màu vàng khi hover */
+        }
+
+        /* Media queries cho màn hình nhỏ hơn (điện thoại) */
+        @media (max-width: 992px) {
+            .main-container {
+                flex-direction: column;
+                /* Sidebar và nội dung xếp chồng lên nhau */
+                margin: 10px auto;
+                /* Giảm margin trên mobile */
+            }
+
+            .sidebar {
+                width: 100%;
+                /* Sidebar chiếm toàn bộ chiều rộng */
+                padding: 15px 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                /* Thêm đường kẻ dưới */
+                box-shadow: none;
+                /* Loại bỏ shadow cũ */
+            }
+
+            .sidebar h2 {
+                margin-bottom: 15px;
+            }
+
+            .sidebar-menu li a {
+                padding: 10px 20px;
+                /* Giảm padding menu items */
+            }
+
+            .content-area {
+                padding: 20px;
+                /* Giảm padding content-area */
+            }
+
+            .form-left h2 {
+                font-size: 1.3em;
+                margin-bottom: 20px;
+            }
+
+            .form-group>div {
+                flex-basis: 100%;
+                /* Các trường input chiếm toàn bộ chiều rộng */
+                min-width: unset;
+            }
+
+            button[type="submit"] {
+                padding: 12px 30px;
+                font-size: 1em;
+            }
+
+            .header {
+                flex-direction: column;
+                text-align: center;
+                padding: 10px 15px;
+            }
+
+            .header .nav {
+                margin-top: 10px;
+                position: static;
+                /* Đặt lại vị trí */
+            }
+
+            .header .nav ul {
+                flex-wrap: wrap;
+                /* Cho phép menu xuống dòng */
+                justify-content: center;
+                position: relative;
+                left: -270px;
+            }
+
+            .header .nav li {
+                margin: 5px 10px;
+                /* Giảm khoảng cách giữa các mục nav */
+            }
+
+            .header .logo {
+                margin-bottom: 10px;
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">Poly Cafe System</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="#">Giới Thiệu</a></li>
+                <li><a href="contact.html">Liên Hệ Với Chúng Tôi</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="main-container">
+        <aside class="sidebar">
+            <h2>Hướng dẫn sử dụng</h2>
+
+            <ul class="sidebar-menu">
+                <li><a href="login.html"><i class="fa fa-chart-bar"></i> Đăng nhập</a></li>
+                <li><a href="staff.html"><i class="fas fa-users"></i> Quản Lý Nhân Viên</a></li>
+                <li><a href="product_type.html"><i class="fas fa-box"></i> Quản Lý Loại Sản Phẩm</a></li>
+                <li><a href="product.html"><i class="fas fa fa-shopping-cart"></i> Quản Lý Sản Phẩm</a></li>
+                <li><a href="invoices.html"><i class="fa fa-receipt"></i> Quản Lý Phiếu Bán Hàng</a></li>
+                <li><a href="card.html"><i class="fa fa-id-card"></i> Quản Lý Thẻ Lưu Động</a></li>
+                <li><a href="setting.html"><i class="fas fa-cog"></i> Cài Đặt</a></li>
+                <li><a href="statistical.html"><i class="fa fa-chart-bar"></i> Quản Lý Thống Kê</a></li>
+                <li><a href="forgotPass.html"><i class="fa fa-chart-bar"></i> Quên mật khẩu</a></li>
+            </ul>
+        </aside>
+        <main class="content-area">
+
+            <div class="form-container">
+                <div class="form-left">
+                    <h2>Quý vị vui lòng điền đầy đủ thông tin bên dưới. Bộ phận kỹ thuật sẽ tiếp nhận và phản hồi trong
+                        thời
+                        gian sớm
+                        nhất. Trân trọng cảm ơn!</h2>
+                    <form id="myCustomForm">
+                        <div class="form-group">
+                            <div>
+                                <label for="parentName">Họ và tên *</label>
+                                <input type="text" id="parentName" name="parentName" required>
+                            </div>
+                            <div>
+                                <label for="phoneNumber">Số điện thoại *</label>
+                                <input type="tel" id="phoneNumber" name="phoneNumber" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div>
+                                <label for="subject">Vấn đề gặp phải</label>
+                                <input type="text" id="subject" name="subject">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="deviecs">Dòng máy bạn đang dùng</label>
+                            <input type="text" id="deviecs" name="deviecs">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="content">Mô tả chi tiết và cụ thể</label>
+                            <textarea id="content" name="content" rows="5"></textarea>
+                        </div>
+                        <div>
+
+                        </div>
+
+                        <button type="submit">GỬI</button>
+                    </form>
+                    <div id="formStatus"></div>
+                </div>
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const form = document.getElementById('myCustomForm');
+                    const formStatus = document.getElementById('formStatus');
+
+                    // --- CẤU HÌNH QUAN TRỌNG: THAY THẾ ID CỦA BẠN TẠI ĐÂY ---
+                    // Lấy URL formResponse từ Google Form của bạn (thay viewform thành formResponse)
+                    const GOOGLE_FORM_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSdrPdrdFZ-m6I05Y81R92Z53ZpGLaYjd8KKWpvQTxBeVrfvcw/formResponse';
+
+                    // Ánh xạ các trường từ biểu mẫu HTML của bạn sang Entry ID của Google Form
+                    // Bạn phải lấy các Entry ID này từ Google Form của bạn (xem hướng dẫn ở phần trước)
+                    const FIELD_MAPPING = {
+                        parentName: 'entry.1558524691',    // Họ và tên
+                        phoneNumber: 'entry.1924946785',   // Số điện thoại
+                        email: 'entry.1430945618',         // Email
+                        deviecs: 'entry.1497814824',       // Dòng máy bạn đang dùng
+                        subject: 'entry.1557603328',       // Vấn đề gặp phải
+                        content: 'entry.1794411821'        // Mô tả chi tiết và cụ thể
+                    };
+                    // --- KẾT THÚC CẤU HÌNH ---
+
+
+                    form.addEventListener('submit', function (event) {
+                        event.preventDefault(); // Ngăn chặn biểu mẫu gửi theo cách truyền thống
+
+                        formStatus.textContent = 'Đang gửi...';
+                        formStatus.style.color = 'blue';
+
+                        const formData = new FormData(form);
+                        const dataToSend = {};
+
+                        // Thu thập dữ liệu và ánh xạ đến các Entry ID của Google Form
+                        for (const [key, value] of formData.entries()) {
+                            if (FIELD_MAPPING[key]) { // Chỉ thêm các trường có trong mapping
+                                dataToSend[FIELD_MAPPING[key]] = value;
+                            }
+                        }
+
+                        // Mã hóa dữ liệu thành định dạng URL-encoded
+                        const urlEncodedData = new URLSearchParams(dataToSend).toString();
+
+                        // Gửi dữ liệu đến Google Form sử dụng fetch API
+                        fetch(GOOGLE_FORM_URL, {
+                            method: 'POST',
+                            mode: 'no-cors', // Quan trọng: Google Forms yêu cầu 'no-cors' khi gửi từ nguồn khác
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: urlEncodedData
+                        })
+                            .then(() => {
+                                // Xử lý thành công (chỉ có thể hiển thị thông báo, không có phản hồi trực tiếp từ Google Form)
+                                formStatus.textContent = 'Gửi thành công! Cảm ơn bạn.';
+                                formStatus.style.color = 'green';
+                                form.reset(); // Xóa các trường biểu mẫu
+                            })
+                            .catch(error => {
+                                // Xử lý lỗi (lỗi mạng hoặc lỗi fetch API)
+                                console.error('Lỗi khi gửi biểu mẫu:', error);
+                                formStatus.textContent = 'Đã xảy ra lỗi khi gửi. Vui lòng thử lại.';
+                                formStatus.style.color = 'red';
+                            });
+                    });
+                });
+            </script>
+        </main>
+    </div>
+    <footer>
+        <center>
+            <p>Hệ Thống Quản Lý Bán Hàng PolyCafe</p>
+            <div class="footer-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </center>
+    </footer>
+</body>
+
+</html>
